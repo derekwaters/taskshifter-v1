@@ -1,0 +1,33 @@
+<OutputFormat>
+    <Type>Excel</Type>
+    <OpenAfterOutput />
+    <OutputPath>D:\TaskShifter\Install\</OutputPath>
+    <OutputFilenameFormat>Timesheet_[Year][Month][Day].[Extension]</OutputFilenameFormat>
+    <UseTemplateFile>LJ_Timesheet_Template.csv</UseTemplateFile>
+    <Columns>
+        <Column>
+            <Label>Day</Label>
+            <Item>Day</Item>
+        </Column>
+        <Column>
+            <Label>Date</Label>
+            <Item>Date</Item>
+        </Column>
+        <Column>
+            <Label>Start Time</Label>
+            <Item>StartTime</Item>
+        </Column>
+        <Column>
+            <Label>End Time</Label>
+            <Item>EndTime</Item>
+        </Column>
+        <Column>
+            <Label>Hours</Label>
+            <Item>Duration</Item>
+        </Column>
+        <Column>
+            <Label>Details</Label>
+            <Item>Description</Item>
+        </Column>
+    </Columns>
+</OutputFormat>

@@ -1,0 +1,4 @@
+LIBRARY      "tschinp"
+DESCRIPTION  'CheckInput DLL'
+SECTIONS		 .CheckInput READ WRITE SHARED
+

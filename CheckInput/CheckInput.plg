@@ -1,0 +1,20 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: CheckInput - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "link.exe /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/tschinp.pdb" /debug /machine:I386 /def:".\CheckInput.def" /out:"..\Debug\tschinp.dll" /implib:".\Debug/tschinp.lib"  .\Debug\CheckInput.obj "
+<h3>Output Window</h3>
+Linking...
+   Creating library .\Debug/tschinp.lib and object .\Debug/tschinp.exp
+
+
+
+<h3>Results</h3>
+tschinp.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

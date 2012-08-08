@@ -1,0 +1,582 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\TaskShifter.ico"
+IDR_TASKSHTYPE          ICON                    "res\\TaskShifterDoc.ico"
+IDR_TASKSHTYPE_ALT      ICON                    "res\\idr_task.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About TaskShifter...",       ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG  0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About TaskShifter"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "TaskShifter Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2005",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "TaskShifter MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "TaskShifter"
+            VALUE "LegalCopyright", "Copyright (C) 2005"
+            VALUE "OriginalFilename", "TaskShifter.EXE"
+            VALUE "ProductName", "TaskShifter Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "TaskShifter\n\nTaskSh\n\n\nTaskShifter.Document\nTaskSh Document"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "TaskShifter"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Australia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_NEW_BMP             BITMAP                  "res\\new_bmp.bmp"
+IDB_DELETE_BMP          BITMAP                  "res\\delete_bmp.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NEW_TASK_DLG DIALOGEX 0, 0, 254, 55
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "New Task"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,146,38,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,200,38,50,14
+    LTEXT           "Task Name",IDC_STATIC,6,6,38,8
+    EDITTEXT        IDC_TASK_NAME_EDIT,50,4,200,14,ES_AUTOHSCROLL
+    CONTROL         "Animate icon when this task is selected",IDC_ANIMATE_ICON,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,50,22,199,10
+END
+
+IDD_TASK_LIST_DLG DIALOGEX 0, 0, 254, 231
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Task List"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "",IDC_DELETE_TASK_BTN,227,2,12,11,BS_BITMAP | BS_CENTER | BS_VCENTER
+    PUSHBUTTON      "",IDC_NEW_TASK_BTN,239,2,12,11,BS_BITMAP | BS_CENTER | BS_VCENTER | BS_FLAT
+    CONTROL         "List1",IDC_TASKS_LIST,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_NOSORTHEADER | WS_TABSTOP,4,13,247,199,WS_EX_CLIENTEDGE
+    DEFPUSHBUTTON   "OK",IDOK,147,215,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,201,215,50,14
+END
+
+IDD_TIME_SHEET_DLG DIALOGEX 0, 0, 254, 238
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Time Sheet"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,147,222,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,201,222,50,14
+END
+
+IDD_OPTIONS_DLG DIALOGEX 0, 0, 286, 195
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Options"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Show hours worked on the current task in the tooltip",IDC_HOURS_TASK_TBTN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,2,3,180,10
+    CONTROL         "Show hours worked for the day in the tooltip",IDC_HOURS_DAY_TBTN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,2,16,154,10
+    CONTROL         "Show hours worked for the week in the tooltip",IDC_HOURS_WEEK_TBTN,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,2,29,160,10
+    CONTROL         "Select a task by default when TaskSwitcher starts:",IDC_SELECT_DEFAULT_TASK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,2,42,175,10
+    CONTROL         "Use the last selected task",IDC_DEFAULT_USE_LAST_TASK,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,15,55,97,10
+    CONTROL         "Use This Task",IDC_DEFAULT_USE_THIS_TASK,"Button",BS_AUTORADIOBUTTON,15,68,62,10
+    COMBOBOX        IDC_DEFAULT_TASK_COMBO,77,67,117,95,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    CONTROL         "Show a warning if user input is detected when the current task is ""--Away From Desk--""",IDC_USER_INPUT_WARNING_TBTN,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,2,82,192,17
+    CONTROL         "Show a warning when the total time worked for the day reaches",IDC_TOTAL_DAY_HOURS_WARNING,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,2,101,221,10
+    EDITTEXT        IDC_WARNING_DAY_HOURS_HOURS_EDIT,231,99,17,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "h",IDC_STATIC,250,101,8,8
+    EDITTEXT        IDC_WARNING_DAY_HOURS_MINUTES_EDIT,258,99,17,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "m",IDC_STATIC,277,101,8,8
+    CONTROL         "Show a warning when the total time worked for the week reaches",IDC_TOTAL_WEEK_HOURS_WARNING,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,2,116,224,10
+    EDITTEXT        IDC_WARNING_WEEK_HOURS_HOURS_EDIT,231,114,17,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "h",IDC_STATIC,249,116,8,8
+    EDITTEXT        IDC_WARNING_WEEK_HOURS_MINUTES_EDIT,258,114,17,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "m",IDC_STATIC,278,116,8,8
+    CONTROL         "[Crash / Restart Protection] When TaskSwitcher starts, join up the time gap if the time since TaskSwitcher ended is less than",IDC_CRASH_PROTECT,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,2,131,225,17
+    EDITTEXT        IDC_WARNING_GAP_HOURS_EDIT,231,134,17,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "h",IDC_STATIC,250,136,8,8
+    EDITTEXT        IDC_WARNING_GAP_MINUTES_EDIT,258,134,17,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "m",IDC_STATIC,277,136,8,8
+    CONTROL         "Show a warning and switch to ""--Away From Desk--"" if there is no user input for ",IDC_WARNING_SWITCH_AWAY_FROM_DESK,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,2,152,220,17
+    EDITTEXT        IDC_WARNING_SWITCH_AWAY_EDIT,231,151,25,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "s",IDC_STATIC,258,153,8,8
+    DEFPUSHBUTTON   "OK",IDOK,178,174,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,231,174,50,14
+END
+
+IDD_EXPORT_OPTIONS_DLG DIALOGEX 0, 0, 286, 206
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Export Options"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LTEXT           "Export Folder",IDC_STATIC,13,4,42,8
+    EDITTEXT        IDC_EXPORT_FOLDER_EDIT,58,2,205,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_EXPORT_FOLDER_BTN,262,2,12,14
+    LTEXT           "Filename Format",IDC_STATIC,3,18,52,8
+    EDITTEXT        IDC_EXPORT_FILENAME_FORMAT_EDIT,58,16,205,14,ES_AUTOHSCROLL
+    CONTROL         "Use Template File",IDC_EXPORT_USE_TEMPLATE_TBTN,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,3,32,73,10
+    EDITTEXT        IDC_EXPORT_TEMPLATE_FILE_EDIT,76,30,187,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_EXPORT_TEMPLATE_FILE_BTN,262,30,12,14
+    LTEXT           "Export As",IDC_STATIC,3,48,31,8
+    CONTROL         "CSV",IDC_EXPORT_AS_CSV_TBTN,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,38,48,30,10
+    CONTROL         "Excel",IDC_EXPORT_AS_EXCEL_TBTN,"Button",BS_AUTORADIOBUTTON,73,48,33,10
+    CONTROL         "Open The File After Exporting",IDC_EXPORT_OPEN_AFTER,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,3,59,109,10
+    CONTROL         "Send The Exported File Via Email",IDC_EXPORT_ATTACH_EMAIL,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,3,71,121,10
+    LTEXT           "To",IDC_STATIC,18,84,10,8
+    EDITTEXT        IDC_EXPORT_EMAIL_TO_EDIT,32,83,109,14,ES_AUTOHSCROLL
+    LTEXT           "From",IDC_STATIC,12,98,16,8
+    EDITTEXT        IDC_EXPORT_EMAIL_FROM_EDIT,32,97,109,14,ES_AUTOHSCROLL
+    LTEXT           "Subject",IDC_STATIC,3,112,25,8
+    EDITTEXT        IDC_EXPORT_EMAIL_SUBJECT_EDIT,32,111,109,14,ES_AUTOHSCROLL
+    LTEXT           "Body",IDC_STATIC,11,126,17,8
+    EDITTEXT        IDC_EXPORT_EMAIL_BODY_EDIT,32,125,109,43,ES_MULTILINE | ES_AUTOHSCROLL
+    LTEXT           "Server",IDC_STATIC,6,170,22,8
+    EDITTEXT        IDC_EXPORT_EMAIL_SERVER_EDIT,32,169,109,14,ES_AUTOHSCROLL
+    CONTROL         "List1",IDC_EXPORT_COLUMNS_LIST,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_NOSORTHEADER | WS_TABSTOP,144,49,129,134,WS_EX_CLIENTEDGE
+    DEFPUSHBUTTON   "OK",IDOK,169,185,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,223,185,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_NEW_TASK_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_TASK_LIST_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 224
+    END
+
+    IDD_TIME_SHEET_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 231
+    END
+
+    IDD_OPTIONS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 188
+    END
+
+    IDD_EXPORT_OPTIONS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 199
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\TaskShifter.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (Australia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\TaskShifter.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

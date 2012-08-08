@@ -1,0 +1,110 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TaskShifter - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0xc09 /fo"Debug/TaskShifter.res" /d "_DEBUG" /d "_AFXDLL" "E:\Programming\Projects\TaskShifter\TaskShifter.rc"" 
+Creating temporary file "I:\DOCUME~1\Derek\LOCALS~1\Temp\RSP12.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I "\lj\common\dundas\utb" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /D "TIXML_USE_STL" /FR"Debug/" /Fp"Debug/TaskShifter.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Programming\Projects\TaskShifter\NewTaskDlg.cpp"
+"E:\Programming\Projects\TaskShifter\TaskListDlg.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftDefs.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShifter.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftExportOptionsDlg.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftIcon.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftManager.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftOptionsDlg.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftOutput.cpp"
+"E:\Programming\Projects\TaskShifter\taskshiftschedulewnd.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftUserInput.cpp"
+"E:\Programming\Projects\TaskShifter\TaskShiftUtils.cpp"
+"E:\Programming\Projects\TaskShifter\TimeSheetDlg.cpp"
+"E:\Programming\Projects\TaskShifter\TinyXml\tinyxml.cpp"
+"E:\Programming\Projects\TaskShifter\TinyXml\tinyxmlerror.cpp"
+"E:\Programming\Projects\TaskShifter\TinyXml\tinyxmlparser.cpp"
+"E:\Programming\Projects\TaskShifter\IncludedFiles\excel8.cpp"
+"E:\Programming\Projects\TaskShifter\IncludedFiles\LJDate.cpp"
+"E:\Programming\Projects\TaskShifter\IncludedFiles\OrderedListCtrl.cpp"
+"E:\Programming\Projects\TaskShifter\ShellIcon.cpp"
+"E:\Programming\Projects\TaskShifter\IncludedFiles\SimpleSendMail.cpp"
+"E:\Programming\Projects\TaskShifter\IncludedFiles\Smtp.cpp"
+]
+Creating command line "cl.exe @I:\DOCUME~1\Derek\LOCALS~1\Temp\RSP12.tmp" 
+Creating temporary file "I:\DOCUME~1\Derek\LOCALS~1\Temp\RSP13.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I "\lj\common\dundas\utb" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /D "TIXML_USE_STL" /FR"Debug/" /Fp"Debug/TaskShifter.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Programming\Projects\TaskShifter\StdAfx.cpp"
+]
+Creating command line "cl.exe @I:\DOCUME~1\Derek\LOCALS~1\Temp\RSP13.tmp" 
+Creating temporary file "I:\DOCUME~1\Derek\LOCALS~1\Temp\RSP14.tmp" with contents
+[
+ws2_32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/TaskShifter.pdb" /debug /machine:I386 /out:"Test/TaskShifter.exe" /pdbtype:sept /libpath:".\CheckInput\Debug\\" 
+.\Debug\NewTaskDlg.obj
+.\Debug\StdAfx.obj
+.\Debug\TaskListDlg.obj
+.\Debug\TaskShiftDefs.obj
+.\Debug\TaskShifter.obj
+.\Debug\TaskShiftExportOptionsDlg.obj
+.\Debug\TaskShiftIcon.obj
+.\Debug\TaskShiftManager.obj
+.\Debug\TaskShiftOptionsDlg.obj
+.\Debug\TaskShiftOutput.obj
+.\Debug\taskshiftschedulewnd.obj
+.\Debug\TaskShiftUserInput.obj
+.\Debug\TaskShiftUtils.obj
+.\Debug\TimeSheetDlg.obj
+.\Debug\tinyxml.obj
+.\Debug\tinyxmlerror.obj
+.\Debug\tinyxmlparser.obj
+.\Debug\excel8.obj
+.\Debug\LJDate.obj
+.\Debug\OrderedListCtrl.obj
+.\Debug\ShellIcon.obj
+.\Debug\SimpleSendMail.obj
+.\Debug\Smtp.obj
+.\Debug\TaskShifter.res
+]
+Creating command line "link.exe @I:\DOCUME~1\Derek\LOCALS~1\Temp\RSP14.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+NewTaskDlg.cpp
+TaskListDlg.cpp
+TaskShiftDefs.cpp
+TaskShifter.cpp
+TaskShiftExportOptionsDlg.cpp
+TaskShiftIcon.cpp
+TaskShiftManager.cpp
+TaskShiftOptionsDlg.cpp
+TaskShiftOutput.cpp
+taskshiftschedulewnd.cpp
+TaskShiftUserInput.cpp
+TaskShiftUtils.cpp
+TimeSheetDlg.cpp
+tinyxml.cpp
+tinyxmlerror.cpp
+tinyxmlparser.cpp
+excel8.cpp
+LJDate.cpp
+OrderedListCtrl.cpp
+ShellIcon.cpp
+Generating Code...
+Compiling...
+SimpleSendMail.cpp
+Smtp.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+TaskShifter.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
