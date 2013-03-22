@@ -11,7 +11,7 @@
 #include "TaskShiftOptionsDlg.h"
 #include "TaskShiftUtils.h"
 #include "TaskShiftExportOptionsDlg.h"
-#include "IncludedFiles\LJDate.h"
+#include "IncludedFiles\FWUtilDate.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -98,9 +98,9 @@ BOOL CTaskShiftManager::Create(CWnd *apwndParent, UINT nID)
 #else
 	CString	vcstrDefaultTask;
 #endif
-	int		viTask;
-	int		viMinutes;
-	CLJDate	vdtCurrent;
+	int			viTask;
+	int			viMinutes;
+	CFWUtilDate	vdtCurrent;
 
 	if (CWnd::Create(NULL, NULL, WS_CHILD, CRect(0, 0, 0, 0), apwndParent, nID))
 	{
@@ -188,7 +188,7 @@ bool CTaskShiftManager::SetCurrentTask(int aiNewTask)
 {
 	// Firstly, let's add a new time block record to the list.
 	//
-	CLJDate	vdtCurrent;
+	CFWUtilDate	vdtCurrent;
 
 	if (aiNewTask != m_iCurrentTask)
 	{
@@ -249,7 +249,7 @@ BOOL CTaskShiftManager::ProcessShellNotify(DWORD dwMessage)
 		CMenu								vmnuSubMenu;
 		CMenu								vmnuPreviousWeeks;
 		CTaskShiftPriorWeekVector::iterator	vtIter;
-		CLJDate								vdtTemp;
+		CFWUtilDate							vdtTemp;
 		int									viID;
 		bool								simpleMenu;
 
@@ -323,7 +323,7 @@ bool CTaskShiftManager::RefreshPriorWeeks()
 	CFileFind					vtFinder;
 	BOOL						vbFound;
 	tTaskShiftPriorWeekRecord	vtAdd;
-	CLJDate						vdtTemp;
+	CFWUtilDate					vdtTemp;
 	CString						vcstrDateBit;
 
 	m_vecPriorWeeks.clear();
@@ -467,7 +467,7 @@ void CTaskShiftManager::OnExportThisWeek()
 TimeBlockVector	CTaskShiftManager::GetTimeBlocksIncludingCurrent()
 {
 	TimeBlockVector	vvecRet;
-	CLJDate			vdtCurrent;
+	CFWUtilDate		vdtCurrent;
 
 	vvecRet.insert(vvecRet.begin(), m_vecTimeBlocks.begin(), m_vecTimeBlocks.end());
 	if (m_iCurrentTask >= 1 && m_iCurrentTask < (int)m_vecTasks.size())	// Task 0 is "away"
@@ -568,7 +568,7 @@ bool CTaskShiftManager::RefreshTooltip()
 	int							viExceedHours;
 
 	TimeBlockVector::iterator	vtIter;
-	CLJDate						vdtCurrent;
+	CFWUtilDate					vdtCurrent;
 
 	for (vtIter = m_vecTimeBlocks.begin(); vtIter != m_vecTimeBlocks.end(); ++vtIter)
 	{

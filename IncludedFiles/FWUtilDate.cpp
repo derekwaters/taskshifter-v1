@@ -1,6 +1,5 @@
 #include "stdafx.h"
-#include "LJDate.h"
-// LMJ #include "LJUtils.h"
+#include "FWUtilDate.h"
 
 #include <vector>
 
@@ -10,30 +9,30 @@
 // LMJ #define new DEBUG_NEW
 // LMJ #endif
 
-#define CLJDATE_NULL		_T("Null")
+#define CFWUtilDate_NULL		_T("Null")
 /////////////
-// CLJDate //
+// CFWUtilDate //
 /////////////
 
-CLJDate::CLJDate()
+CFWUtilDate::CFWUtilDate()
 {
 	SetCurrent();
 	//m_cstrNull = _T("Null");
 }
 
-CLJDate::CLJDate(const CLJDate &asdDate)
+CFWUtilDate::CFWUtilDate(const CFWUtilDate &asdDate)
 {
 	SetDate(asdDate);
 }
 
 #ifdef __AFX_H__
 
-CLJDate::CLJDate(const COleDateTime &aodtDate)
+CFWUtilDate::CFWUtilDate(const COleDateTime &aodtDate)
 {
 	SetDate(aodtDate);
 }
 
-LJDateStatus_Constants CLJDate::SetDate(const COleDateTime &aodtDate)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(const COleDateTime &aodtDate)
 {
 	m_DateTime.wYear = aodtDate.GetYear();
 	m_DateTime.wMonth = aodtDate.GetMonth();
@@ -46,13 +45,13 @@ LJDateStatus_Constants CLJDate::SetDate(const COleDateTime &aodtDate)
 	return GetStatus();
 }
 
-CLJDate &CLJDate::operator = (const COleDateTime &aodtDate)
+CFWUtilDate &CFWUtilDate::operator = (const COleDateTime &aodtDate)
 {
 	SetDate(aodtDate);
 	return *this;
 }
 
-CLJDate::operator DATE() const
+CFWUtilDate::operator DATE() const
 {
 	DATE vDate;
 	if (IsValid())
@@ -62,13 +61,13 @@ CLJDate::operator DATE() const
 	return vDate;
 }
 
-CLJDate &CLJDate::operator = (DATE aDate)
+CFWUtilDate &CFWUtilDate::operator = (DATE aDate)
 {
 	SetDate(COleDateTime(aDate));
 	return *this;
 }
 
-CLJDate::operator COleDateTime() const
+CFWUtilDate::operator COleDateTime() const
 {
 	COleDateTime vodtRet;
 	vodtRet.SetStatus(COleDateTime::null);
@@ -79,36 +78,36 @@ CLJDate::operator COleDateTime() const
 
 #endif
 
-CLJDate::CLJDate(int aiLJDateIndex)
+CFWUtilDate::CFWUtilDate(int aiFWUtilDateIndex)
 {
-	SetDate(aiLJDateIndex);
+	SetDate(aiFWUtilDateIndex);
 }
 
-CLJDate::CLJDate(int aiYear, int aiMonth, int aiDay, int aiHours, int aiMinutes, int aiSeconds, int aiMilliseconds)
+CFWUtilDate::CFWUtilDate(int aiYear, int aiMonth, int aiDay, int aiHours, int aiMinutes, int aiSeconds, int aiMilliseconds)
 {
 	SetDateTime(aiYear, aiMonth, aiDay, aiHours, aiMinutes, aiSeconds, aiMilliseconds);
 }
 
-CLJDate::CLJDate(long alJulianDate)
+CFWUtilDate::CFWUtilDate(long alJulianDate)
 {
 	SetDate(alJulianDate);
 }
 
-CLJDate::CLJDate(SYSTEMTIME astDate)
+CFWUtilDate::CFWUtilDate(SYSTEMTIME astDate)
 {
 	SetDate(astDate);
 }
 
-CLJDate::CLJDate(ULONGLONG aui64Val)
+CFWUtilDate::CFWUtilDate(ULONGLONG aui64Val)
 {
 	SetDate(aui64Val);
 }
 
-CLJDate::~CLJDate()
+CFWUtilDate::~CFWUtilDate()
 {
 }
 
-bool CLJDate::IsLeapYear() const
+bool CFWUtilDate::IsLeapYear() const
 {
 	bool vbRet = false;
 	if (IsValid())
@@ -116,81 +115,81 @@ bool CLJDate::IsLeapYear() const
 	return vbRet;
 }
 
-bool CLJDate::IsNull() const
+bool CFWUtilDate::IsNull() const
 {
-	return (GetStatus() == LJDateStatus_Null);
+	return (GetStatus() == FWUtilDateStatus_Null);
 }
 
-bool CLJDate::IsEmpty() const
+bool CFWUtilDate::IsEmpty() const
 {
 	return IsNull();
 }
 
-void CLJDate::Empty()
+void CFWUtilDate::Empty()
 {
 	memset(&m_DateTime, NULL, sizeof(m_DateTime));
 }
 
-bool CLJDate::IsValid() const
+bool CFWUtilDate::IsValid() const
 {
-	return (GetStatus() == LJDateStatus_Valid);
+	return (GetStatus() == FWUtilDateStatus_Valid);
 }
 
-int CLJDate::GetYear() const
+int CFWUtilDate::GetYear() const
 {
 	return m_DateTime.wYear;
 }
 
-int CLJDate::GetMonth() const
+int CFWUtilDate::GetMonth() const
 {
 	return m_DateTime.wMonth;
 }
 
-int CLJDate::GetDay() const
+int CFWUtilDate::GetDay() const
 {
 	return m_DateTime.wDay;
 }
 
-int CLJDate::GetHours() const
+int CFWUtilDate::GetHours() const
 {
 	return m_DateTime.wHour;
 }
 
-int CLJDate::GetMinutes() const
+int CFWUtilDate::GetMinutes() const
 {
 	return m_DateTime.wMinute;
 }
 
-int CLJDate::GetSeconds() const
+int CFWUtilDate::GetSeconds() const
 {
 	return m_DateTime.wSecond;
 }
 
-int CLJDate::GetMilliseconds() const
+int CFWUtilDate::GetMilliseconds() const
 {
 	return m_DateTime.wMilliseconds;
 }
 
-int CLJDate::GetMinuteOfDay() const
+int CFWUtilDate::GetMinuteOfDay() const
 {
 	return (m_DateTime.wHour * 60) + m_DateTime.wMinute;
 }
 
-int CLJDate::GetDayOfYear(LJDateMonth_Constants aeStartOfYear)
+int CFWUtilDate::GetDayOfYear(FWUtilDateMonth_Constants aeStartOfYear)
 {
 	int viRet = 0;
 	if (IsValid())
 	{
-		ULONGLONG vui64SOY = CLJDate(m_DateTime.wYear, aeStartOfYear, 1);
-		ULONGLONG vui64Date = CLJDate(m_DateTime.wYear, m_DateTime.wMonth, m_DateTime.wDay);
-		viRet = (int)((vui64Date - vui64SOY) / LJ_DAY) + 1;
+		ULONGLONG vui64SOY = CFWUtilDate(m_DateTime.wYear, aeStartOfYear, 1);
+		ULONGLONG vui64Date = CFWUtilDate(m_DateTime.wYear, m_DateTime.wMonth, m_DateTime.wDay);
+		viRet = (int)((vui64Date - vui64SOY) / FWDATE_DAY) + 1;
 	}
 	return viRet;
 }
 
-LJDateDay_Constants CLJDate::GetDayOfWeek()
+FWUtilDateDay_Constants CFWUtilDate::GetDayOfWeek()
 {
-	LJDateDay_Constants veRet = LJDateDay_Sunday;
+	FWUtilDateDay_Constants veRet = FWUtilDateDay_Sunday;
 	if (IsValid())
 	{
 		SYSTEMTIME vstDate;
@@ -199,26 +198,26 @@ LJDateDay_Constants CLJDate::GetDayOfWeek()
 		{
 			if (FileTimeToSystemTime(&vftDate, &vstDate))
 			{
-				veRet = (LJDateDay_Constants)vstDate.wDayOfWeek;
+				veRet = (FWUtilDateDay_Constants)vstDate.wDayOfWeek;
 			}
 		}
 	}
 	return veRet;
 }
 
-LJDateStatus_Constants CLJDate::GetStatus() const
+FWUtilDateStatus_Constants CFWUtilDate::GetStatus() const
 {
-	LJDateStatus_Constants veRet = LJDateStatus_Invalid;
+	FWUtilDateStatus_Constants veRet = FWUtilDateStatus_Invalid;
 	if (m_DateTime.wYear == 0 && m_DateTime.wMonth == 0 && m_DateTime.wDay == 0 && m_DateTime.wHour == 0 && m_DateTime.wMinute == 0 && m_DateTime.wSecond == 0 && m_DateTime.wMilliseconds == 0)
 	{
-		veRet = LJDateStatus_Null;
+		veRet = FWUtilDateStatus_Null;
 	}
 	else
 	{
 		FILETIME vftDate;
 		if (SystemTimeToFileTime(&m_DateTime, &vftDate) != 0)
 		{
-			veRet = LJDateStatus_Valid;
+			veRet = FWUtilDateStatus_Valid;
 		}
 	}
 	return veRet;
@@ -226,14 +225,14 @@ LJDateStatus_Constants CLJDate::GetStatus() const
 
 // Modified by DJW 20020724
 //
-int CLJDate::GetTotalMonths() const
+int CFWUtilDate::GetTotalMonths() const
 {
-	return (((m_DateTime.wYear - LJ_BASE_YEAR) * 12) + m_DateTime.wMonth - 1);
+	return (((m_DateTime.wYear - FWDATE_BASE_YEAR) * 12) + m_DateTime.wMonth - 1);
 }
 
-LJDateStatus_Constants CLJDate::SetTotalMonths(int aiMonths)
+FWUtilDateStatus_Constants CFWUtilDate::SetTotalMonths(int aiMonths)
 {
-	m_DateTime.wYear = LJ_BASE_YEAR + ((aiMonths) / 12);
+	m_DateTime.wYear = FWDATE_BASE_YEAR + ((aiMonths) / 12);
 	m_DateTime.wMonth = ((aiMonths) % 12) + 1;
 	m_DateTime.wDay = 15;
 	return GetStatus();
@@ -241,7 +240,7 @@ LJDateStatus_Constants CLJDate::SetTotalMonths(int aiMonths)
 //
 // End of modification
 
-CLJDate &CLJDate::AddYears(int aiYears)
+CFWUtilDate &CFWUtilDate::AddYears(int aiYears)
 {
 	if (IsValid())
 	{
@@ -250,7 +249,7 @@ CLJDate &CLJDate::AddYears(int aiYears)
 	return *this;
 }
 
-CLJDate &CLJDate::AddMonths(int aiMonths)
+CFWUtilDate &CFWUtilDate::AddMonths(int aiMonths)
 {
 	if (IsValid())
 	{
@@ -273,12 +272,12 @@ CLJDate &CLJDate::AddMonths(int aiMonths)
 	return *this;
 }
 
-CLJDate &CLJDate::AddWeeks(int aiWeeks)
+CFWUtilDate &CFWUtilDate::AddWeeks(int aiWeeks)
 {
 	if (IsValid())
 	{
 		ULONGLONG vui64Date = *this;
-		LONGLONG vi64Date = vui64Date + (aiWeeks * LJ_WEEK);
+		LONGLONG vi64Date = vui64Date + (aiWeeks * FWDATE_WEEK);
 		if (vi64Date >= 0)
 		{
 			vui64Date = vi64Date;
@@ -288,12 +287,12 @@ CLJDate &CLJDate::AddWeeks(int aiWeeks)
 	return *this;
 }
 
-CLJDate &CLJDate::AddDays(int aiDays)
+CFWUtilDate &CFWUtilDate::AddDays(int aiDays)
 {
 	if (IsValid())
 	{
 		ULONGLONG vui64Date = *this;
-		LONGLONG vi64Date = vui64Date + (aiDays * LJ_DAY);
+		LONGLONG vi64Date = vui64Date + (aiDays * FWDATE_DAY);
 		if (vi64Date >= 0)
 		{
 			vui64Date = vi64Date;
@@ -303,12 +302,12 @@ CLJDate &CLJDate::AddDays(int aiDays)
 	return *this;
 }
 
-CLJDate &CLJDate::AddMinutes(int aiMinutes)
+CFWUtilDate &CFWUtilDate::AddMinutes(int aiMinutes)
 {
 	if (IsValid())
 	{
 		ULONGLONG vui64Date = *this;
-		LONGLONG vi64Date = vui64Date + (aiMinutes * LJ_MINUTE);
+		LONGLONG vi64Date = vui64Date + (aiMinutes * FWDATE_MINUTE);
 		if (vi64Date >= 0)
 		{
 			vui64Date = vi64Date;
@@ -318,12 +317,12 @@ CLJDate &CLJDate::AddMinutes(int aiMinutes)
 	return *this;
 }
 
-CLJDate &CLJDate::AddSeconds(int aiSeconds)
+CFWUtilDate &CFWUtilDate::AddSeconds(int aiSeconds)
 {
 	if (IsValid())
 	{
 		ULONGLONG vui64Date = *this;
-		LONGLONG vi64Date = vui64Date + (aiSeconds * LJ_SECOND);
+		LONGLONG vi64Date = vui64Date + (aiSeconds * FWDATE_SECOND);
 		if (vi64Date >= 0)
 		{
 			vui64Date = vi64Date;
@@ -333,18 +332,18 @@ CLJDate &CLJDate::AddSeconds(int aiSeconds)
 	return *this;
 }
 
-__int64	 CLJDate::Difference(LJDateDiff_Constants aeType, const CLJDate& aLJDate)
+__int64	 CFWUtilDate::Difference(FWUtilDateDiff_Constants aeType, const CFWUtilDate& aFWUtilDate)
 {
 	__int64 vi64Ret = 0;
 	__int64 vi64Date1 = *this;
-	__int64 vi64Date2 = aLJDate;
-	CLJDate	vLJDate1;
-	CLJDate vLJDate2;
-	CLJDate vLJDate1Year;
-	CLJDate vLJDate2Year;
+	__int64 vi64Date2 = aFWUtilDate;
+	CFWUtilDate	vFWUtilDate1;
+	CFWUtilDate vFWUtilDate2;
+	CFWUtilDate vFWUtilDate1Year;
+	CFWUtilDate vFWUtilDate2Year;
 	__int64	viMonths = 0;
 
-	CLJDate	vdtTemp(aLJDate);
+	CFWUtilDate	vdtTemp(aFWUtilDate);
 
 	vi64Ret = (vi64Date1 - vi64Date2);
 	if (vi64Ret < 0)
@@ -353,97 +352,97 @@ __int64	 CLJDate::Difference(LJDateDiff_Constants aeType, const CLJDate& aLJDate
 	}
 	switch (aeType)
 	{
-	case LJDateDiff_Seconds:
-		return vi64Ret / LJ_SECOND;
+	case FWUtilDateDiff_Seconds:
+		return vi64Ret / FWDATE_SECOND;
 		break;
-	case LJDateDiff_Minutes:
-		return vi64Ret / LJ_MINUTE;
+	case FWUtilDateDiff_Minutes:
+		return vi64Ret / FWDATE_MINUTE;
 		break;
-	case LJDateDiff_Hours:
-		return vi64Ret / LJ_HOUR;
+	case FWUtilDateDiff_Hours:
+		return vi64Ret / FWDATE_HOUR;
 		break;
-	case LJDateDiff_Days:
-		return vi64Ret / LJ_DAY;
+	case FWUtilDateDiff_Days:
+		return vi64Ret / FWDATE_DAY;
 		break;
-	case LJDateDiff_Weeks:
-		return vi64Ret / LJ_WEEK;
+	case FWUtilDateDiff_Weeks:
+		return vi64Ret / FWDATE_WEEK;
 		break;
 	// Added by MV 20040216
 	//
-	case LJDateDiff_Months:
+	case FWUtilDateDiff_Months:
 
 		if(*this < vdtTemp)
 		{
-			vLJDate1 = *this;
-			vLJDate2 = aLJDate;
+			vFWUtilDate1 = *this;
+			vFWUtilDate2 = aFWUtilDate;
 		}
 		else
 		{
-			vLJDate1 = aLJDate;
-			vLJDate2 = *this;
+			vFWUtilDate1 = aFWUtilDate;
+			vFWUtilDate2 = *this;
 		}
 
 		// Offset the dates to the first complete month
-		if(vLJDate1.GetDay() != 1)
+		if(vFWUtilDate1.GetDay() != 1)
 		{
-			vLJDate1.SetDateTime(vLJDate1.GetYear(), vLJDate1.GetMonth(), 1);
-			vLJDate1.AddMonths(1);
+			vFWUtilDate1.SetDateTime(vFWUtilDate1.GetYear(), vFWUtilDate1.GetMonth(), 1);
+			vFWUtilDate1.AddMonths(1);
 		}
-		if(vLJDate2.GetDay() != 1)
+		if(vFWUtilDate2.GetDay() != 1)
 		{
-			vLJDate2.SetDateTime(vLJDate2.GetYear(), vLJDate2.GetMonth(), 1);
+			vFWUtilDate2.SetDateTime(vFWUtilDate2.GetYear(), vFWUtilDate2.GetMonth(), 1);
 		}
 
 		// As long as the dates are still in order, we proceed
-		if(vLJDate1 < vLJDate2)
+		if(vFWUtilDate1 < vFWUtilDate2)
 		{
-			vLJDate1Year.SetDateTime(vLJDate1.GetYear()+1, 1, 1);
-			vLJDate2Year.SetDateTime(vLJDate2.GetYear(), 1, 1);
+			vFWUtilDate1Year.SetDateTime(vFWUtilDate1.GetYear()+1, 1, 1);
+			vFWUtilDate2Year.SetDateTime(vFWUtilDate2.GetYear(), 1, 1);
 
-			if(vLJDate1Year < vLJDate2Year)
+			if(vFWUtilDate1Year < vFWUtilDate2Year)
 			{
-				viMonths += vLJDate1Year.Difference(LJDateDiff_Years, vLJDate2Year) * 12;
-				viMonths += 12 - vLJDate1.GetMonth();
-				viMonths += vLJDate2.GetMonth();
+				viMonths += vFWUtilDate1Year.Difference(FWUtilDateDiff_Years, vFWUtilDate2Year) * 12;
+				viMonths += 12 - vFWUtilDate1.GetMonth();
+				viMonths += vFWUtilDate2.GetMonth();
 			}
 			else
 			{
-				if(vLJDate1.GetYear() == vLJDate2.GetYear())
-					viMonths = vLJDate2.GetMonth() - vLJDate1.GetMonth();
+				if(vFWUtilDate1.GetYear() == vFWUtilDate2.GetYear())
+					viMonths = vFWUtilDate2.GetMonth() - vFWUtilDate1.GetMonth();
 				else
-					viMonths = (12 - vLJDate1.GetMonth()) + (vLJDate2.GetMonth());
+					viMonths = (12 - vFWUtilDate1.GetMonth()) + (vFWUtilDate2.GetMonth());
 			}
 			return viMonths;
 		}
 
 		break;
-	case LJDateDiff_Years:
+	case FWUtilDateDiff_Years:
 
 		if(*this < vdtTemp)
 		{
-			vLJDate1 = *this;
-			vLJDate2 = aLJDate;
+			vFWUtilDate1 = *this;
+			vFWUtilDate2 = aFWUtilDate;
 		}
 		else
 		{
-			vLJDate1 = aLJDate;
-			vLJDate2 = *this;
+			vFWUtilDate1 = aFWUtilDate;
+			vFWUtilDate2 = *this;
 		}
 
 		// Offset the dates to the complete year (next for 1st date, previous for 2nd date)
-		if(vLJDate1.GetDay() != 1 || vLJDate1.GetMonth() != 1)
+		if(vFWUtilDate1.GetDay() != 1 || vFWUtilDate1.GetMonth() != 1)
 		{
-			vLJDate1.SetDate(vLJDate1.GetYear()+1, 1, 1);
+			vFWUtilDate1.SetDate(vFWUtilDate1.GetYear()+1, 1, 1);
 		}
-		if(vLJDate2.GetDay() != 1 || vLJDate2.GetMonth() != 1)
+		if(vFWUtilDate2.GetDay() != 1 || vFWUtilDate2.GetMonth() != 1)
 		{
-			vLJDate2.SetDate(vLJDate2.GetYear(), 1, 1);
+			vFWUtilDate2.SetDate(vFWUtilDate2.GetYear(), 1, 1);
 		}
 
 		// As long as the dates are still in order, we proceed
-		if(vLJDate1 < vLJDate2)
+		if(vFWUtilDate1 < vFWUtilDate2)
 		{
-			return (vLJDate2.GetYear() - vLJDate1.GetYear());
+			return (vFWUtilDate2.GetYear() - vFWUtilDate1.GetYear());
 		}
 
 		break;
@@ -453,64 +452,64 @@ __int64	 CLJDate::Difference(LJDateDiff_Constants aeType, const CLJDate& aLJDate
 	return 0;
 }
 
-__int64 CLJDate::DifferenceEx(LJDateDiff_Constants aeType, const CLJDate& aLJDate)
+__int64 CFWUtilDate::DifferenceEx(FWUtilDateDiff_Constants aeType, const CFWUtilDate& aFWUtilDate)
 {
 	__int64 vi64Ret = 0;
 	__int64 vi64Date1 = *this;
-	__int64 vi64Date2 = aLJDate;
+	__int64 vi64Date2 = aFWUtilDate;
 
 	vi64Ret = (vi64Date1 - vi64Date2);
 
 	switch (aeType)
 	{
-	case LJDateDiff_Seconds:
-		return vi64Ret / LJ_SECOND;
+	case FWUtilDateDiff_Seconds:
+		return vi64Ret / FWDATE_SECOND;
 		break;
-	case LJDateDiff_Minutes:
-		return vi64Ret / LJ_MINUTE;
+	case FWUtilDateDiff_Minutes:
+		return vi64Ret / FWDATE_MINUTE;
 		break;
-	case LJDateDiff_Hours:
-		return vi64Ret / LJ_HOUR;
+	case FWUtilDateDiff_Hours:
+		return vi64Ret / FWDATE_HOUR;
 		break;
-	case LJDateDiff_Days:
-		return vi64Ret / LJ_DAY;
+	case FWUtilDateDiff_Days:
+		return vi64Ret / FWDATE_DAY;
 		break;
-	case LJDateDiff_Weeks:
-		return vi64Ret / LJ_WEEK;
+	case FWUtilDateDiff_Weeks:
+		return vi64Ret / FWDATE_WEEK;
 		break;
 	}
 	return 0;
 }
 
-double CLJDate::Subtract(LJDateDiff_Constants aeType, const CLJDate& aLJDate)
+double CFWUtilDate::Subtract(FWUtilDateDiff_Constants aeType, const CFWUtilDate& aFWUtilDate)
 {
 	__int64	vi64Ret = 0;
 	__int64	vi64Date1 = *this;
-	__int64	vi64Date2 = aLJDate;
+	__int64	vi64Date2 = aFWUtilDate;
 
 	vi64Ret = (vi64Date1 - vi64Date2);
 	switch (aeType)
 	{
-	case LJDateDiff_Seconds:
-		return (double)vi64Ret / (double)LJ_SECOND;
+	case FWUtilDateDiff_Seconds:
+		return (double)vi64Ret / (double)FWDATE_SECOND;
 		break;
-	case LJDateDiff_Minutes:
-		return (double)vi64Ret / (double)LJ_MINUTE;
+	case FWUtilDateDiff_Minutes:
+		return (double)vi64Ret / (double)FWDATE_MINUTE;
 		break;
-	case LJDateDiff_Hours:
-		return (double)vi64Ret / (double)LJ_HOUR;
+	case FWUtilDateDiff_Hours:
+		return (double)vi64Ret / (double)FWDATE_HOUR;
 		break;
-	case LJDateDiff_Days:
-		return (double)vi64Ret / (double)LJ_DAY;
+	case FWUtilDateDiff_Days:
+		return (double)vi64Ret / (double)FWDATE_DAY;
 		break;
-	case LJDateDiff_Weeks:
-		return (double)vi64Ret / (double)LJ_WEEK;
+	case FWUtilDateDiff_Weeks:
+		return (double)vi64Ret / (double)FWDATE_WEEK;
 		break;
 	}
 	return 0.0;
 }
 
-CString CLJDate::GetDateTimeString(bool abUseLongDate, bool abUseLongTime) const
+CString CFWUtilDate::GetDateTimeString(bool abUseLongDate, bool abUseLongTime) const
 {
 	return GetLocaleDateTimeString(LOCALE_USER_DEFAULT, abUseLongDate, abUseLongTime);
 //SJSG	CString vcstrRet;
@@ -518,14 +517,14 @@ CString CLJDate::GetDateTimeString(bool abUseLongDate, bool abUseLongTime) const
 //SJSG	return vcstrRet;
 }
 
-CString CLJDate::GetLocaleDateTimeString(LCID alcid, bool abUseLongDate, bool abUseLongTime) const
+CString CFWUtilDate::GetLocaleDateTimeString(LCID alcid, bool abUseLongDate, bool abUseLongTime) const
 {
 	CString vcstrRet;
 	vcstrRet.Format(_T("%s %s"), GetLocaleDateString(alcid, abUseLongDate), GetLocaleTimeString(alcid, abUseLongTime));
 	return vcstrRet;
 }
 
-CString CLJDate::GetDateString(bool abUseLongDescription) const
+CString CFWUtilDate::GetDateString(bool abUseLongDescription) const
 {
 	return GetLocaleDateString(LOCALE_USER_DEFAULT, abUseLongDescription);
 
@@ -554,7 +553,7 @@ CString CLJDate::GetDateString(bool abUseLongDescription) const
 //SJSG 	return vcstrRet;
 }
 
-CString CLJDate::GetLocaleDateString(LCID alcid, bool abUseLongDescription) const
+CString CFWUtilDate::GetLocaleDateString(LCID alcid, bool abUseLongDescription) const
 {
 	CString vcstrRet;
 	DWORD vdwFlags = 0;
@@ -581,7 +580,7 @@ CString CLJDate::GetLocaleDateString(LCID alcid, bool abUseLongDescription) cons
 	return vcstrRet;
 }
 
-CString CLJDate::GetTimeString(bool abUseLongDescription) const
+CString CFWUtilDate::GetTimeString(bool abUseLongDescription) const
 {
 	return GetLocaleTimeString(LOCALE_USER_DEFAULT, abUseLongDescription);
 }
@@ -589,7 +588,7 @@ CString CLJDate::GetTimeString(bool abUseLongDescription) const
 /**
  Will format times so AM/PM etc are correct given locale
  */
-CString CLJDate::GetLocaleTimeString(LCID alcid, bool abUseLongDescription) const
+CString CFWUtilDate::GetLocaleTimeString(LCID alcid, bool abUseLongDescription) const
 {
 	CString vcstrRet;
 	DWORD vdwFlags = 0;
@@ -616,7 +615,7 @@ CString CLJDate::GetLocaleTimeString(LCID alcid, bool abUseLongDescription) cons
 	return vcstrRet;
 }
 
-CString CLJDate::GetTimeString(bool ab24Hour, bool abIncludeSeconds) const
+CString CFWUtilDate::GetTimeString(bool ab24Hour, bool abIncludeSeconds) const
 {
 	return GetLocaleTimeString(LOCALE_USER_DEFAULT, ab24Hour, abIncludeSeconds);
 }
@@ -624,7 +623,7 @@ CString CLJDate::GetTimeString(bool ab24Hour, bool abIncludeSeconds) const
 /**
  Will format times so AM/PM etc are correct given locale
  */
-CString CLJDate::GetLocaleTimeString(LCID alcid, bool ab24Hour, bool abIncludeSeconds) const
+CString CFWUtilDate::GetLocaleTimeString(LCID alcid, bool ab24Hour, bool abIncludeSeconds) const
 {
 	CString vstrFormat;
 	CString	vstrRet;
@@ -658,7 +657,7 @@ CString CLJDate::GetLocaleTimeString(LCID alcid, bool ab24Hour, bool abIncludeSe
 
 // Added by MV 20030807
 //
-CString CLJDate::GetTimeString(LPCTSTR aszDisplayFormat) const
+CString CFWUtilDate::GetTimeString(LPCTSTR aszDisplayFormat) const
 {
 	CString vcstrRet;
 	DWORD vdwFlags = 0;
@@ -681,7 +680,7 @@ CString CLJDate::GetTimeString(LPCTSTR aszDisplayFormat) const
 
 // Added by MV 20030807
 //
-CString CLJDate::GetLocaleTimeString(LCID alcid, LPCTSTR aszDisplayFormat) const
+CString CFWUtilDate::GetLocaleTimeString(LCID alcid, LPCTSTR aszDisplayFormat) const
 {
 	CString vcstrRet;
 	DWORD vdwFlags = 0;
@@ -702,34 +701,34 @@ CString CLJDate::GetLocaleTimeString(LCID alcid, LPCTSTR aszDisplayFormat) const
 //
 // End of Addition
 
-CString CLJDate::GetLJDateString() const
+CString CFWUtilDate::GetFWUtilDateString() const
 {
 	CString vcstrDateString;
 	vcstrDateString.Format(_T("%04i%02i%02i"), m_DateTime.wYear, m_DateTime.wMonth, m_DateTime.wDay);
 	return vcstrDateString;
 }
 
-CString CLJDate::GetTimeStamp() const
+CString CFWUtilDate::GetTimeStamp() const
 {
 	CString vstrTimeStamp;
 	vstrTimeStamp.Format(_T("%04i%02i%02i %02i%02i%02i"), m_DateTime.wYear, m_DateTime.wMonth, m_DateTime.wDay, m_DateTime.wHour, m_DateTime.wMinute, m_DateTime.wSecond);
 	return vstrTimeStamp;
 }
 
-LJDateStatus_Constants CLJDate::SetLJDateString(LPCTSTR aszLJDate)
+FWUtilDateStatus_Constants CFWUtilDate::SetFWUtilDateString(LPCTSTR aszFWUtilDate)
 {
-	LJDateStatus_Constants	veRet = LJDateStatus_Invalid;
+	FWUtilDateStatus_Constants	veRet = FWUtilDateStatus_Invalid;
 	bool					vbOK = true;
 	int						viYear;
 	int						viMonth;
 	int						viDay;
 	TCHAR					vszTemp[5];
 
-	if (aszLJDate && _tcslen(aszLJDate) == 8)
+	if (aszFWUtilDate && _tcslen(aszFWUtilDate) == 8)
 	{
 		for (int i = 0; i < 8; i++)
 		{
-			if (!isdigit(aszLJDate[i]))
+			if (!isdigit(aszFWUtilDate[i]))
 			{
 				vbOK = false;
 				break;
@@ -738,13 +737,13 @@ LJDateStatus_Constants CLJDate::SetLJDateString(LPCTSTR aszLJDate)
 		if (vbOK)
 		{
 			memset(vszTemp, NULL, sizeof(vszTemp));
-			_tcsncpy_s(vszTemp, sizeof(vszTemp), aszLJDate, 4);
+			_tcsncpy_s(vszTemp, sizeof(vszTemp), aszFWUtilDate, 4);
 			viYear = atoi(vszTemp);
 			memset(vszTemp, NULL, sizeof(vszTemp));
-			_tcsncpy_s(vszTemp, sizeof(vszTemp), aszLJDate + 4, 2);
+			_tcsncpy_s(vszTemp, sizeof(vszTemp), aszFWUtilDate + 4, 2);
 			viMonth = atoi(vszTemp);
 			memset(vszTemp, NULL, sizeof(vszTemp));
-			_tcsncpy_s(vszTemp, sizeof(vszTemp), aszLJDate + 6, 2);
+			_tcsncpy_s(vszTemp, sizeof(vszTemp), aszFWUtilDate + 6, 2);
 			viDay = atoi(vszTemp);
 			veRet = SetDateTime(viYear, viMonth, viDay);
 		}
@@ -752,7 +751,7 @@ LJDateStatus_Constants CLJDate::SetLJDateString(LPCTSTR aszLJDate)
 	return veRet;
 }
 
-CString CLJDate::GetOracleDateString(bool abIncludeEqualSigns, bool abAssignment)
+CString CFWUtilDate::GetOracleDateString(bool abIncludeEqualSigns, bool abAssignment)
 {
 	CString vcstrDateString;
 	CString vcstrTemp;
@@ -789,7 +788,7 @@ CString CLJDate::GetOracleDateString(bool abIncludeEqualSigns, bool abAssignment
 	return vcstrDateString;
 }
 
-CString CLJDate::GetOracleDateTimeString(bool abIncludeEqualSigns, bool abAssignment)
+CString CFWUtilDate::GetOracleDateTimeString(bool abIncludeEqualSigns, bool abAssignment)
 {
 	CString vcstrDateString;
 	CString vcstrTemp;
@@ -826,7 +825,7 @@ CString CLJDate::GetOracleDateTimeString(bool abIncludeEqualSigns, bool abAssign
 	return vcstrDateString;
 }
 
-LJDateStatus_Constants CLJDate::SetDate(int aiYear, int aiMonth, int aiDay)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(int aiYear, int aiMonth, int aiDay)
 {
 	m_DateTime.wYear = aiYear;
 	m_DateTime.wMonth = aiMonth;
@@ -839,7 +838,7 @@ LJDateStatus_Constants CLJDate::SetDate(int aiYear, int aiMonth, int aiDay)
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetTime(int aiHours, int aiMinutes, int aiSeconds, int aiMilliseconds)
+FWUtilDateStatus_Constants CFWUtilDate::SetTime(int aiHours, int aiMinutes, int aiSeconds, int aiMilliseconds)
 {
 	m_DateTime.wHour = aiHours;
 	m_DateTime.wMinute = aiMinutes;
@@ -848,7 +847,7 @@ LJDateStatus_Constants CLJDate::SetTime(int aiHours, int aiMinutes, int aiSecond
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetTime(int aiMinuteOfDay)
+FWUtilDateStatus_Constants CFWUtilDate::SetTime(int aiMinuteOfDay)
 {
 	if (aiMinuteOfDay >= 0 && aiMinuteOfDay < 1440 && IsValid())
 	{
@@ -861,7 +860,7 @@ LJDateStatus_Constants CLJDate::SetTime(int aiMinuteOfDay)
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetDateTime(int aiYear, int aiMonth, int aiDay, int aiHours, int aiMinutes, int aiSeconds, int aiMilliseconds)
+FWUtilDateStatus_Constants CFWUtilDate::SetDateTime(int aiYear, int aiMonth, int aiDay, int aiHours, int aiMinutes, int aiSeconds, int aiMilliseconds)
 {
 	m_DateTime.wYear = aiYear;
 	m_DateTime.wMonth = aiMonth;
@@ -874,7 +873,7 @@ LJDateStatus_Constants CLJDate::SetDateTime(int aiYear, int aiMonth, int aiDay, 
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetDate(const CLJDate &asdDate)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(const CFWUtilDate &asdDate)
 {
 	m_DateTime.wYear = asdDate.GetYear();
 	m_DateTime.wMonth = asdDate.GetMonth();
@@ -887,16 +886,16 @@ LJDateStatus_Constants CLJDate::SetDate(const CLJDate &asdDate)
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetDate(int aiLJDateIndex)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(int aiFWUtilDateIndex)
 {
-	ULONGLONG vui64BaseDate = CLJDate(LJ_BASE_YEAR, LJ_BASE_MONTH, LJ_BASE_DAY);
-	LONGLONG vi64Difference = aiLJDateIndex * LJ_DAY;
+	ULONGLONG vui64BaseDate = CFWUtilDate(FWDATE_BASE_YEAR, FWDATE_BASE_MONTH, FWDATE_BASE_DAY);
+	LONGLONG vi64Difference = aiFWUtilDateIndex * FWDATE_DAY;
 	ULONGLONG vui64Date = vi64Difference + vui64BaseDate;
 	Clear();
 	return SetDate(vui64Date);
 }
 
-LJDateStatus_Constants CLJDate::SetDate(long alJulianDate)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(long alJulianDate)
 {
 	long L;
 	long N;
@@ -920,7 +919,7 @@ LJDateStatus_Constants CLJDate::SetDate(long alJulianDate)
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetDate(SYSTEMTIME astDate)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(SYSTEMTIME astDate)
 {
 	m_DateTime.wYear = astDate.wYear;
 	m_DateTime.wMonth = astDate.wMonth;
@@ -933,9 +932,9 @@ LJDateStatus_Constants CLJDate::SetDate(SYSTEMTIME astDate)
 	return GetStatus();
 }
 
-LJDateStatus_Constants CLJDate::SetDate(ULONGLONG aui64Val)
+FWUtilDateStatus_Constants CFWUtilDate::SetDate(ULONGLONG aui64Val)
 {
-	LJDateStatus_Constants veRet = LJDateStatus_Invalid;
+	FWUtilDateStatus_Constants veRet = FWUtilDateStatus_Invalid;
 	SYSTEMTIME vstDate;
 	FILETIME vftDate;
 	vftDate = *(FILETIME*)&aui64Val;
@@ -946,7 +945,7 @@ LJDateStatus_Constants CLJDate::SetDate(ULONGLONG aui64Val)
 	return veRet;
 }
 
-void CLJDate::SetCurrent()
+void CFWUtilDate::SetCurrent()
 {
 	SYSTEMTIME vstCurrent;
 	memset(&vstCurrent, 0, sizeof(vstCurrent));
@@ -954,7 +953,7 @@ void CLJDate::SetCurrent()
 	SetDate(vstCurrent);
 }
 
-void CLJDate::Clear()
+void CFWUtilDate::Clear()
 {
 	m_DateTime.wYear = 0;
 	m_DateTime.wMonth = 0;
@@ -966,7 +965,7 @@ void CLJDate::Clear()
 	m_DateTime.wDayOfWeek = 0;
 }
 
-bool CLJDate::operator != (const CLJDate& asdDate) const
+bool CFWUtilDate::operator != (const CFWUtilDate& asdDate) const
 {
 	ULONGLONG vui64Date1 = *this;
 	ULONGLONG vui64Date2 = asdDate;
@@ -998,7 +997,7 @@ bool CLJDate::operator != (const CLJDate& asdDate) const
 */
 }
 
-bool CLJDate::operator < (const CLJDate& asdDate) const
+bool CFWUtilDate::operator < (const CFWUtilDate& asdDate) const
 {
 	ULONGLONG vui64Date1 = *this;
 	ULONGLONG vui64Date2 = asdDate;
@@ -1026,7 +1025,7 @@ bool CLJDate::operator < (const CLJDate& asdDate) const
 */
 }
 
-bool CLJDate::operator <= (const CLJDate& asdDate) const
+bool CFWUtilDate::operator <= (const CFWUtilDate& asdDate) const
 {
 	ULONGLONG vui64Date1 = *this;
 	ULONGLONG vui64Date2 = asdDate;
@@ -1054,7 +1053,7 @@ bool CLJDate::operator <= (const CLJDate& asdDate) const
 */
 }
 
-bool CLJDate::operator == (const CLJDate& asdDate) const
+bool CFWUtilDate::operator == (const CFWUtilDate& asdDate) const
 {
 	ULONGLONG vui64Date1 = *this;
 	ULONGLONG vui64Date2 = asdDate;
@@ -1086,7 +1085,7 @@ bool CLJDate::operator == (const CLJDate& asdDate) const
 */
 }
 
-bool CLJDate::operator > (const CLJDate& asdDate) const
+bool CFWUtilDate::operator > (const CFWUtilDate& asdDate) const
 {
 	ULONGLONG vui64Date1 = *this;
 	ULONGLONG vui64Date2 = asdDate;
@@ -1114,7 +1113,7 @@ bool CLJDate::operator > (const CLJDate& asdDate) const
 */
 }
 
-bool CLJDate::operator >= (const CLJDate& asdDate) const
+bool CFWUtilDate::operator >= (const CFWUtilDate& asdDate) const
 {
 	ULONGLONG vui64Date1 = *this;
 	ULONGLONG vui64Date2 = asdDate;
@@ -1142,60 +1141,60 @@ bool CLJDate::operator >= (const CLJDate& asdDate) const
 */
 }
 
-CLJDate &CLJDate::operator = (const CLJDate& asdDate)
+CFWUtilDate &CFWUtilDate::operator = (const CFWUtilDate& asdDate)
 {
 	SetDate(asdDate);
 	return *this;
 }
 
-CLJDate &CLJDate::operator = (const SYSTEMTIME &astDate)
+CFWUtilDate &CFWUtilDate::operator = (const SYSTEMTIME &astDate)
 {
 	SetDate(astDate);
 	return *this;
 }
 
-CLJDate &CLJDate::operator = (int aiLJDateIndex)
+CFWUtilDate &CFWUtilDate::operator = (int aiFWUtilDateIndex)
 {
-	SetDate(aiLJDateIndex);
+	SetDate(aiFWUtilDateIndex);
 	return *this;
 }
 
-CLJDate &CLJDate::operator = (long alJulianDate)
+CFWUtilDate &CFWUtilDate::operator = (long alJulianDate)
 {
 	SetDate(alJulianDate);
 	return *this;
 }
 
-CLJDate &CLJDate::operator = (ULONGLONG aui64Val)
+CFWUtilDate &CFWUtilDate::operator = (ULONGLONG aui64Val)
 {
 	SetDate(aui64Val);
 	return *this;
 }
 
-CLJDate::operator int() const
+CFWUtilDate::operator int() const
 {
 	int viRet = 0;
 	if (IsValid())
 	{
-		ULONGLONG vui64BaseDate = CLJDate(LJ_BASE_YEAR, LJ_BASE_MONTH, LJ_BASE_DAY);
+		ULONGLONG vui64BaseDate = CFWUtilDate(FWDATE_BASE_YEAR, FWDATE_BASE_MONTH, FWDATE_BASE_DAY);
 		ULONGLONG vui64Date = *this;
 		if (vui64Date >= vui64BaseDate)
 		{
 			LONGLONG vi64Difference = vui64Date - vui64BaseDate;
 
-			viRet = (int)(vi64Difference / LJ_DAY);
+			viRet = (int)(vi64Difference / FWDATE_DAY);
 		}
 		else
 		{
 			LONGLONG vi64Difference = vui64BaseDate - vui64Date;
 
-			viRet = -(int)(vi64Difference / LJ_DAY);
+			viRet = -(int)(vi64Difference / FWDATE_DAY);
 		}
 	}
 	return viRet;
 }
 
-CLJDate::operator long() const
+CFWUtilDate::operator long() const
 {
 	long vlRet = 0;
 	if (IsValid())
@@ -1213,12 +1212,12 @@ CLJDate::operator long() const
 	return vlRet;
 }
 
-CLJDate::operator LPCTSTR() const
+CFWUtilDate::operator LPCTSTR() const
 {
 	return GetDateString();
 }
 
-CLJDate::operator SYSTEMTIME() const
+CFWUtilDate::operator SYSTEMTIME() const
 {
 	SYSTEMTIME vstRet;
 	memset(&vstRet, 0, sizeof(vstRet));
@@ -1241,7 +1240,7 @@ CLJDate::operator SYSTEMTIME() const
 	return vstRet;
 }
 
-CLJDate::operator ULONGLONG() const
+CFWUtilDate::operator ULONGLONG() const
 {
 	ULONGLONG vui64Ret = 0;
 	if (IsValid())
@@ -1255,7 +1254,7 @@ CLJDate::operator ULONGLONG() const
 	return vui64Ret;
 }
 
-CLJDate::operator __int64() const
+CFWUtilDate::operator __int64() const
 {
 	return (ULONGLONG)*this;
 // LMJ 	ULONGLONG vui64Ret = 0;
@@ -1270,9 +1269,9 @@ CLJDate::operator __int64() const
 // LMJ 	return vui64Ret;
 }
 
-CString CLJDate::GetNameOfDay(int aiDay, bool abUseLongDescription)
+CString CFWUtilDate::GetNameOfDay(int aiDay, bool abUseLongDescription)
 {
-	return CLJDate::GetLocaleNameOfDay(LOCALE_USER_DEFAULT, aiDay, abUseLongDescription);
+	return CFWUtilDate::GetLocaleNameOfDay(LOCALE_USER_DEFAULT, aiDay, abUseLongDescription);
 
 //SJSG 	CString vcstrRet;
 //SJSG 
@@ -1282,25 +1281,25 @@ CString CLJDate::GetNameOfDay(int aiDay, bool abUseLongDescription)
 //SJSG 		{
 //SJSG 			switch (aiDay)
 //SJSG 			{
-//SJSG 			case LJDateDay_Sunday:
+//SJSG 			case FWUtilDateDay_Sunday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME7);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Monday:
+//SJSG 			case FWUtilDateDay_Monday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME1);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Tuesday:
+//SJSG 			case FWUtilDateDay_Tuesday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME2);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Wednesday:
+//SJSG 			case FWUtilDateDay_Wednesday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME3);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Thursday:
+//SJSG 			case FWUtilDateDay_Thursday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME4);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Friday:
+//SJSG 			case FWUtilDateDay_Friday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME5);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Saturday:
+//SJSG 			case FWUtilDateDay_Saturday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME6);
 //SJSG 				break;
 //SJSG 			}
@@ -1309,25 +1308,25 @@ CString CLJDate::GetNameOfDay(int aiDay, bool abUseLongDescription)
 //SJSG 		{
 //SJSG 			switch (aiDay)
 //SJSG 			{
-//SJSG 			case LJDateDay_Sunday:
+//SJSG 			case FWUtilDateDay_Sunday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME7);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Monday:
+//SJSG 			case FWUtilDateDay_Monday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME1);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Tuesday:
+//SJSG 			case FWUtilDateDay_Tuesday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME2);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Wednesday:
+//SJSG 			case FWUtilDateDay_Wednesday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME3);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Thursday:
+//SJSG 			case FWUtilDateDay_Thursday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME4);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Friday:
+//SJSG 			case FWUtilDateDay_Friday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME5);
 //SJSG 				break;
-//SJSG 			case LJDateDay_Saturday:
+//SJSG 			case FWUtilDateDay_Saturday:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME6);
 //SJSG 				break;
 //SJSG 			}
@@ -1336,7 +1335,7 @@ CString CLJDate::GetNameOfDay(int aiDay, bool abUseLongDescription)
 //SJSG 	return vcstrRet;
 }
 
-CString CLJDate::GetLocaleNameOfDay(LCID alcid, int aiDay, bool abUseLongDescription)
+CString CFWUtilDate::GetLocaleNameOfDay(LCID alcid, int aiDay, bool abUseLongDescription)
 {
 	CString vcstrRet;
 
@@ -1346,25 +1345,25 @@ CString CLJDate::GetLocaleNameOfDay(LCID alcid, int aiDay, bool abUseLongDescrip
 		{
 			switch (aiDay)
 			{
-			case LJDateDay_Sunday:
+			case FWUtilDateDay_Sunday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME7);
 				break;
-			case LJDateDay_Monday:
+			case FWUtilDateDay_Monday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME1);
 				break;
-			case LJDateDay_Tuesday:
+			case FWUtilDateDay_Tuesday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME2);
 				break;
-			case LJDateDay_Wednesday:
+			case FWUtilDateDay_Wednesday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME3);
 				break;
-			case LJDateDay_Thursday:
+			case FWUtilDateDay_Thursday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME4);
 				break;
-			case LJDateDay_Friday:
+			case FWUtilDateDay_Friday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME5);
 				break;
-			case LJDateDay_Saturday:
+			case FWUtilDateDay_Saturday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SDAYNAME6);
 				break;
 			}
@@ -1373,25 +1372,25 @@ CString CLJDate::GetLocaleNameOfDay(LCID alcid, int aiDay, bool abUseLongDescrip
 		{
 			switch (aiDay)
 			{
-			case LJDateDay_Sunday:
+			case FWUtilDateDay_Sunday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME7);
 				break;
-			case LJDateDay_Monday:
+			case FWUtilDateDay_Monday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME1);
 				break;
-			case LJDateDay_Tuesday:
+			case FWUtilDateDay_Tuesday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME2);
 				break;
-			case LJDateDay_Wednesday:
+			case FWUtilDateDay_Wednesday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME3);
 				break;
-			case LJDateDay_Thursday:
+			case FWUtilDateDay_Thursday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME4);
 				break;
-			case LJDateDay_Friday:
+			case FWUtilDateDay_Friday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME5);
 				break;
-			case LJDateDay_Saturday:
+			case FWUtilDateDay_Saturday:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVDAYNAME6);
 				break;
 			}
@@ -1400,12 +1399,12 @@ CString CLJDate::GetLocaleNameOfDay(LCID alcid, int aiDay, bool abUseLongDescrip
 	return vcstrRet;
 }
 
-CString CLJDate::GetNameOfMonth(int aiMth, bool abUseLongDescription)
+CString CFWUtilDate::GetNameOfMonth(int aiMth, bool abUseLongDescription)
 {
-	return CLJDate::GetLocaleNameOfMonth(LOCALE_USER_DEFAULT, aiMth, abUseLongDescription);
+	return CFWUtilDate::GetLocaleNameOfMonth(LOCALE_USER_DEFAULT, aiMth, abUseLongDescription);
 }
 
-CString CLJDate::GetLocaleNameOfMonth(LCID alcid, int aiMth, bool abUseLongDescription)
+CString CFWUtilDate::GetLocaleNameOfMonth(LCID alcid, int aiMth, bool abUseLongDescription)
 {
 	CString vcstrRet;
 
@@ -1415,40 +1414,40 @@ CString CLJDate::GetLocaleNameOfMonth(LCID alcid, int aiMth, bool abUseLongDescr
 		{
 			switch (aiMth)
 			{
-			case LJDateMonth_January:
+			case FWUtilDateMonth_January:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME1);
 				break;
-			case LJDateMonth_February:
+			case FWUtilDateMonth_February:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME2);
 				break;
-			case LJDateMonth_March:
+			case FWUtilDateMonth_March:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME3);
 				break;
-			case LJDateMonth_April:
+			case FWUtilDateMonth_April:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME4);
 				break;
-			case LJDateMonth_May:
+			case FWUtilDateMonth_May:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME5);
 				break;
-			case LJDateMonth_June:
+			case FWUtilDateMonth_June:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME6);
 				break;
-			case LJDateMonth_July:
+			case FWUtilDateMonth_July:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME7);
 				break;
-			case LJDateMonth_August:
+			case FWUtilDateMonth_August:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME8);
 				break;
-			case LJDateMonth_September:
+			case FWUtilDateMonth_September:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME9);
 				break;
-			case LJDateMonth_October:
+			case FWUtilDateMonth_October:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME10);
 				break;
-			case LJDateMonth_November:
+			case FWUtilDateMonth_November:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME11);
 				break;
-			case LJDateMonth_December:
+			case FWUtilDateMonth_December:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME12);
 				break;
 			}
@@ -1457,40 +1456,40 @@ CString CLJDate::GetLocaleNameOfMonth(LCID alcid, int aiMth, bool abUseLongDescr
 		{
 			switch (aiMth)
 			{
-			case LJDateMonth_January:
+			case FWUtilDateMonth_January:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME1);
 				break;
-			case LJDateMonth_February:
+			case FWUtilDateMonth_February:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME2);
 				break;
-			case LJDateMonth_March:
+			case FWUtilDateMonth_March:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME3);
 				break;
-			case LJDateMonth_April:
+			case FWUtilDateMonth_April:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME4);
 				break;
-			case LJDateMonth_May:
+			case FWUtilDateMonth_May:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME5);
 				break;
-			case LJDateMonth_June:
+			case FWUtilDateMonth_June:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME6);
 				break;
-			case LJDateMonth_July:
+			case FWUtilDateMonth_July:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME7);
 				break;
-			case LJDateMonth_August:
+			case FWUtilDateMonth_August:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME8);
 				break;
-			case LJDateMonth_September:
+			case FWUtilDateMonth_September:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME9);
 				break;
-			case LJDateMonth_October:
+			case FWUtilDateMonth_October:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME10);
 				break;
-			case LJDateMonth_November:
+			case FWUtilDateMonth_November:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME11);
 				break;
-			case LJDateMonth_December:
+			case FWUtilDateMonth_December:
 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME12);
 				break;
 			}
@@ -1500,19 +1499,19 @@ CString CLJDate::GetLocaleNameOfMonth(LCID alcid, int aiMth, bool abUseLongDescr
 	return vcstrRet;
 }
 
-CString CLJDate::GetDayName(bool abUseLongDescription)
+CString CFWUtilDate::GetDayName(bool abUseLongDescription)
 {
 	return GetLocaleNameOfDay(LOCALE_USER_DEFAULT, GetDayOfWeek(), abUseLongDescription);
 }
 
-CString CLJDate::GetLocaleDayName(LCID alcid, bool abUseLongDescription)
+CString CFWUtilDate::GetLocaleDayName(LCID alcid, bool abUseLongDescription)
 {
 	return GetLocaleNameOfDay(alcid, GetDayOfWeek(), abUseLongDescription);
 }
 
-CString CLJDate::GetMonthName(bool abUseLongDescription)
+CString CFWUtilDate::GetMonthName(bool abUseLongDescription)
 {
-	return CLJDate::GetLocaleNameOfMonth(LOCALE_USER_DEFAULT, m_DateTime.wMonth, abUseLongDescription);
+	return CFWUtilDate::GetLocaleNameOfMonth(LOCALE_USER_DEFAULT, m_DateTime.wMonth, abUseLongDescription);
 
 //SJSG 	CString vcstrRet;
 //SJSG 	if (IsValid())
@@ -1521,40 +1520,40 @@ CString CLJDate::GetMonthName(bool abUseLongDescription)
 //SJSG 		{
 //SJSG 			switch (m_DateTime.wMonth)
 //SJSG 			{
-//SJSG 			case LJDateMonth_January:
+//SJSG 			case FWUtilDateMonth_January:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME1);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_February:
+//SJSG 			case FWUtilDateMonth_February:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME2);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_March:
+//SJSG 			case FWUtilDateMonth_March:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME3);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_April:
+//SJSG 			case FWUtilDateMonth_April:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME4);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_May:
+//SJSG 			case FWUtilDateMonth_May:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME5);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_June:
+//SJSG 			case FWUtilDateMonth_June:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME6);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_July:
+//SJSG 			case FWUtilDateMonth_July:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME7);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_August:
+//SJSG 			case FWUtilDateMonth_August:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME8);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_September:
+//SJSG 			case FWUtilDateMonth_September:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME9);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_October:
+//SJSG 			case FWUtilDateMonth_October:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME10);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_November:
+//SJSG 			case FWUtilDateMonth_November:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME11);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_December:
+//SJSG 			case FWUtilDateMonth_December:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SMONTHNAME12);
 //SJSG 				break;
 //SJSG 			}
@@ -1563,40 +1562,40 @@ CString CLJDate::GetMonthName(bool abUseLongDescription)
 //SJSG 		{
 //SJSG 			switch (m_DateTime.wMonth)
 //SJSG 			{
-//SJSG 			case LJDateMonth_January:
+//SJSG 			case FWUtilDateMonth_January:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME1);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_February:
+//SJSG 			case FWUtilDateMonth_February:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME2);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_March:
+//SJSG 			case FWUtilDateMonth_March:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME3);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_April:
+//SJSG 			case FWUtilDateMonth_April:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME4);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_May:
+//SJSG 			case FWUtilDateMonth_May:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME5);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_June:
+//SJSG 			case FWUtilDateMonth_June:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME6);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_July:
+//SJSG 			case FWUtilDateMonth_July:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME7);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_August:
+//SJSG 			case FWUtilDateMonth_August:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME8);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_September:
+//SJSG 			case FWUtilDateMonth_September:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME9);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_October:
+//SJSG 			case FWUtilDateMonth_October:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME10);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_November:
+//SJSG 			case FWUtilDateMonth_November:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME11);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_December:
+//SJSG 			case FWUtilDateMonth_December:
 //SJSG 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVMONTHNAME12);
 //SJSG 				break;
 //SJSG 			}
@@ -1605,9 +1604,9 @@ CString CLJDate::GetMonthName(bool abUseLongDescription)
 //SJSG 	return vcstrRet;
 }
 
-CString CLJDate::GetLocaleMonthName(LCID alcid, bool abUseLongDescription)
+CString CFWUtilDate::GetLocaleMonthName(LCID alcid, bool abUseLongDescription)
 {
-	return CLJDate::GetLocaleNameOfMonth(alcid, m_DateTime.wMonth, abUseLongDescription);
+	return CFWUtilDate::GetLocaleNameOfMonth(alcid, m_DateTime.wMonth, abUseLongDescription);
 
 //SJSG 	CString vcstrRet;
 //SJSG 	if (IsValid())
@@ -1616,40 +1615,40 @@ CString CLJDate::GetLocaleMonthName(LCID alcid, bool abUseLongDescription)
 //SJSG 		{
 //SJSG 			switch (m_DateTime.wMonth)
 //SJSG 			{
-//SJSG 			case LJDateMonth_January:
+//SJSG 			case FWUtilDateMonth_January:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME1);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_February:
+//SJSG 			case FWUtilDateMonth_February:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME2);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_March:
+//SJSG 			case FWUtilDateMonth_March:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME3);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_April:
+//SJSG 			case FWUtilDateMonth_April:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME4);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_May:
+//SJSG 			case FWUtilDateMonth_May:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME5);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_June:
+//SJSG 			case FWUtilDateMonth_June:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME6);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_July:
+//SJSG 			case FWUtilDateMonth_July:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME7);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_August:
+//SJSG 			case FWUtilDateMonth_August:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME8);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_September:
+//SJSG 			case FWUtilDateMonth_September:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME9);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_October:
+//SJSG 			case FWUtilDateMonth_October:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME10);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_November:
+//SJSG 			case FWUtilDateMonth_November:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME11);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_December:
+//SJSG 			case FWUtilDateMonth_December:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SMONTHNAME12);
 //SJSG 				break;
 //SJSG 			}
@@ -1658,40 +1657,40 @@ CString CLJDate::GetLocaleMonthName(LCID alcid, bool abUseLongDescription)
 //SJSG 		{
 //SJSG 			switch (m_DateTime.wMonth)
 //SJSG 			{
-//SJSG 			case LJDateMonth_January:
+//SJSG 			case FWUtilDateMonth_January:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME1);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_February:
+//SJSG 			case FWUtilDateMonth_February:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME2);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_March:
+//SJSG 			case FWUtilDateMonth_March:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME3);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_April:
+//SJSG 			case FWUtilDateMonth_April:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME4);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_May:
+//SJSG 			case FWUtilDateMonth_May:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME5);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_June:
+//SJSG 			case FWUtilDateMonth_June:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME6);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_July:
+//SJSG 			case FWUtilDateMonth_July:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME7);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_August:
+//SJSG 			case FWUtilDateMonth_August:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME8);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_September:
+//SJSG 			case FWUtilDateMonth_September:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME9);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_October:
+//SJSG 			case FWUtilDateMonth_October:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME10);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_November:
+//SJSG 			case FWUtilDateMonth_November:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME11);
 //SJSG 				break;
-//SJSG 			case LJDateMonth_December:
+//SJSG 			case FWUtilDateMonth_December:
 //SJSG 				vcstrRet = LocaleInfo(alcid, LOCALE_SABBREVMONTHNAME12);
 //SJSG 				break;
 //SJSG 			}
@@ -1701,7 +1700,7 @@ CString CLJDate::GetLocaleMonthName(LCID alcid, bool abUseLongDescription)
 }
 
 
-CString CLJDate::GetDayOfWeekName(bool abUseLongDescription)
+CString CFWUtilDate::GetDayOfWeekName(bool abUseLongDescription)
 {
 // LMJ 	CString vcstrRet;
 // LMJ 	
@@ -1711,25 +1710,25 @@ CString CLJDate::GetDayOfWeekName(bool abUseLongDescription)
 // LMJ 		{
 // LMJ 			switch (GetDayOfWeek())
 // LMJ 			{
-// LMJ 			case LJDateDay_Monday:
+// LMJ 			case FWUtilDateDay_Monday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME1);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Tuesday:
+// LMJ 			case FWUtilDateDay_Tuesday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME2);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Wednesday:
+// LMJ 			case FWUtilDateDay_Wednesday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME3);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Thursday:
+// LMJ 			case FWUtilDateDay_Thursday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME4);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Friday:
+// LMJ 			case FWUtilDateDay_Friday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME5);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Saturday:
+// LMJ 			case FWUtilDateDay_Saturday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME6);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Sunday:
+// LMJ 			case FWUtilDateDay_Sunday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SDAYNAME7);
 // LMJ 				break;
 // LMJ 			}
@@ -1738,25 +1737,25 @@ CString CLJDate::GetDayOfWeekName(bool abUseLongDescription)
 // LMJ 		{
 // LMJ 			switch (GetDayOfWeek())
 // LMJ 			{
-// LMJ 			case LJDateDay_Monday:
+// LMJ 			case FWUtilDateDay_Monday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME1);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Tuesday:
+// LMJ 			case FWUtilDateDay_Tuesday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME2);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Wednesday:
+// LMJ 			case FWUtilDateDay_Wednesday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME3);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Thursday:
+// LMJ 			case FWUtilDateDay_Thursday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME4);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Friday:
+// LMJ 			case FWUtilDateDay_Friday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME5);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Saturday:
+// LMJ 			case FWUtilDateDay_Saturday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME6);
 // LMJ 				break;
-// LMJ 			case LJDateDay_Sunday:
+// LMJ 			case FWUtilDateDay_Sunday:
 // LMJ 				vcstrRet = UserLocaleInfo(LOCALE_SABBREVDAYNAME7);
 // LMJ 				break;
 // LMJ 			}
@@ -1766,12 +1765,12 @@ CString CLJDate::GetDayOfWeekName(bool abUseLongDescription)
 	return GetNameOfDay(GetDayOfWeek(), abUseLongDescription);
 }
 
-CString CLJDate::GetLocaleDayOfWeekName(LCID alcid, bool abUseLongDescription)
+CString CFWUtilDate::GetLocaleDayOfWeekName(LCID alcid, bool abUseLongDescription)
 {
 	return GetLocaleNameOfDay(alcid, GetDayOfWeek(), abUseLongDescription);
 }
 
-CString CLJDate::UserLocaleInfo(LCTYPE LCType)
+CString CFWUtilDate::UserLocaleInfo(LCTYPE LCType)
 {
 	CString vcstrRet;
 	int viNumChars = GetLocaleInfo(LOCALE_USER_DEFAULT, LCType, NULL, 0);
@@ -1788,7 +1787,7 @@ CString CLJDate::UserLocaleInfo(LCTYPE LCType)
 	return vcstrRet;
 }
 
-CString CLJDate::LocaleInfo(LCID alcid, LCTYPE LCType)
+CString CFWUtilDate::LocaleInfo(LCID alcid, LCTYPE LCType)
 {
 	CString vcstrRet;
 	int viNumChars = GetLocaleInfo(alcid, LCType, NULL, 0);
@@ -1805,16 +1804,16 @@ CString CLJDate::LocaleInfo(LCID alcid, LCTYPE LCType)
 	return vcstrRet;
 }
 
-bool CLJDate::SetToWCDate(LJDateDay_Constants aeStartOfWeek)
+bool CFWUtilDate::SetToWCDate(FWUtilDateDay_Constants aeStartOfWeek)
 {
-	if (IsValid() && aeStartOfWeek >= 0 && aeStartOfWeek < LJDateDay_Count)
+	if (IsValid() && aeStartOfWeek >= 0 && aeStartOfWeek < FWUtilDateDay_Count)
 	{
 		if (GetDayOfWeek() != aeStartOfWeek)
 		{
 			int viDays = (int)GetDayOfWeek() - (int)aeStartOfWeek;
 			if (viDays < 0)
 			{
-				viDays += (int)LJDateDay_Count;
+				viDays += (int)FWUtilDateDay_Count;
 			}
 			AddDays(-viDays);
 			return IsValid();
@@ -1827,7 +1826,7 @@ bool CLJDate::SetToWCDate(LJDateDay_Constants aeStartOfWeek)
 	return false;
 }
 
-bool CLJDate::IsLastDayOfWeek(LJDateDay_Constants aeStartOfWeek)
+bool CFWUtilDate::IsLastDayOfWeek(FWUtilDateDay_Constants aeStartOfWeek)
 {
 	bool vbRet = false;
 
@@ -1840,16 +1839,16 @@ bool CLJDate::IsLastDayOfWeek(LJDateDay_Constants aeStartOfWeek)
 	return vbRet;
 }
 
-bool CLJDate::SetToFirstDayOfWeek(int aiStartOfWeek)
+bool CFWUtilDate::SetToFirstDayOfWeek(int aiStartOfWeek)
 {
-	if (IsValid() && aiStartOfWeek >= 0 && aiStartOfWeek < LJDateDay_Count)
+	if (IsValid() && aiStartOfWeek >= 0 && aiStartOfWeek < FWUtilDateDay_Count)
 	{
 		if ((int)GetDayOfWeek() != aiStartOfWeek)
 		{
 			int viDays = (int)GetDayOfWeek() - aiStartOfWeek;
 			if (viDays < 0)
 			{
-				viDays += (int)LJDateDay_Count;
+				viDays += (int)FWUtilDateDay_Count;
 			}
 			AddDays(-viDays);
 			return IsValid();
@@ -1862,35 +1861,35 @@ bool CLJDate::SetToFirstDayOfWeek(int aiStartOfWeek)
 	return false;
 }
 
-bool CLJDate::SetToLastDayOfWeek(int aiStartOfWeek)
+bool CFWUtilDate::SetToLastDayOfWeek(int aiStartOfWeek)
 {
 	if (SetToFirstDayOfWeek(aiStartOfWeek))
 	{
-		AddDays(LJDateDay_Count - 1);
+		AddDays(FWUtilDateDay_Count - 1);
 		return IsValid();
 	}
 	return false;
 }
 
-bool CLJDate::IsFirstDayOfWeek(int aiStartOfWeek)
+bool CFWUtilDate::IsFirstDayOfWeek(int aiStartOfWeek)
 {
-	if (IsValid() && aiStartOfWeek >= 0 && aiStartOfWeek < LJDateDay_Count)
+	if (IsValid() && aiStartOfWeek >= 0 && aiStartOfWeek < FWUtilDateDay_Count)
 	{
 		return ((int)GetDayOfWeek() == aiStartOfWeek);
 	}
 	return false;
 }
 
-bool CLJDate::IsLastDayOfWeek(int aiStartOfWeek)
+bool CFWUtilDate::IsLastDayOfWeek(int aiStartOfWeek)
 {
-	if (IsValid() && aiStartOfWeek >= 0 && aiStartOfWeek < LJDateDay_Count)
+	if (IsValid() && aiStartOfWeek >= 0 && aiStartOfWeek < FWUtilDateDay_Count)
 	{
-		return ((int)GetDayOfWeek() == (aiStartOfWeek + (LJDateDay_Count - 1)));
+		return ((int)GetDayOfWeek() == (aiStartOfWeek + (FWUtilDateDay_Count - 1)));
 	}
 	return false;
 }
 
-bool CLJDate::SetToFirstDayOfMonth()
+bool CFWUtilDate::SetToFirstDayOfMonth()
 {
 	if (IsValid())
 	{
@@ -1900,7 +1899,7 @@ bool CLJDate::SetToFirstDayOfMonth()
 	return false;
 }
 
-bool CLJDate::SetToLastDayOfMonth()
+bool CFWUtilDate::SetToLastDayOfMonth()
 {
 	if (SetToFirstDayOfMonth())
 	{
@@ -1911,7 +1910,7 @@ bool CLJDate::SetToLastDayOfMonth()
 	return false;
 }
 
-bool CLJDate::IsLastDayOfMonth()
+bool CFWUtilDate::IsLastDayOfMonth()
 {
 	bool	vbRet = false;
 	int		viMonth;
@@ -1933,7 +1932,7 @@ bool CLJDate::IsLastDayOfMonth()
 	return vbRet;
 }
 
-bool CLJDate::IsLastDayOfQuarter()
+bool CFWUtilDate::IsLastDayOfQuarter()
 {
 	bool	vbRet = false;
 	int		viQuarter;
@@ -1958,7 +1957,7 @@ bool CLJDate::IsLastDayOfQuarter()
 	return vbRet;
 }
 
-bool CLJDate::SetToFirstDayOfQuarter()
+bool CFWUtilDate::SetToFirstDayOfQuarter()
 {
 	if (IsValid())
 	{
@@ -1969,7 +1968,7 @@ bool CLJDate::SetToFirstDayOfQuarter()
 	return false;
 }
 
-bool CLJDate::SetToLastDayOfQuarter()
+bool CFWUtilDate::SetToLastDayOfQuarter()
 {
 	if (SetToFirstDayOfQuarter())
 	{
@@ -1980,7 +1979,7 @@ bool CLJDate::SetToLastDayOfQuarter()
 	return false;
 }
 
-bool CLJDate::SetToFirstDayOfYear()
+bool CFWUtilDate::SetToFirstDayOfYear()
 {
 	if (IsValid())
 	{
@@ -1991,7 +1990,7 @@ bool CLJDate::SetToFirstDayOfYear()
 	return false;
 }
 
-bool CLJDate::SetToLastDayOfYear()
+bool CFWUtilDate::SetToLastDayOfYear()
 {
 	if (IsValid())
 	{
@@ -2002,7 +2001,7 @@ bool CLJDate::SetToLastDayOfYear()
 	return false;
 }
 
-bool CLJDate::IsFirstDayOfYear()
+bool CFWUtilDate::IsFirstDayOfYear()
 {
 	bool vbRet = false;
 
@@ -2013,7 +2012,7 @@ bool CLJDate::IsFirstDayOfYear()
 	return vbRet;
 }
 
-bool CLJDate::IsLastDayOfYear()
+bool CFWUtilDate::IsLastDayOfYear()
 {
 	bool vbRet = false;
 
@@ -2024,7 +2023,7 @@ bool CLJDate::IsLastDayOfYear()
 	return vbRet;
 }
 
-CString CLJDate::ToLocalIndependantFormat()
+CString CFWUtilDate::ToLocalIndependantFormat()
 {
 	CString vcstrRet;
 
@@ -2039,7 +2038,7 @@ CString CLJDate::ToLocalIndependantFormat()
 	return vcstrRet;
 }
 
-bool CLJDate::FromLocalIndependantFormat(LPCTSTR aszString)
+bool CFWUtilDate::FromLocalIndependantFormat(LPCTSTR aszString)
 {
 	bool vbRet = false;
 
@@ -2056,91 +2055,91 @@ bool CLJDate::FromLocalIndependantFormat(LPCTSTR aszString)
 		viSeconds		= atoi(vcstrDateTime.Mid(12,2));
 		viMilliseconds	= atoi(vcstrDateTime.Mid(14,3));
 
-		vbRet = (LJDateStatus_Valid == SetDateTime(viYear, viMonth, viDay, viHours, viMinutes, viSeconds, viMilliseconds));
+		vbRet = (FWUtilDateStatus_Valid == SetDateTime(viYear, viMonth, viDay, viHours, viMinutes, viSeconds, viMilliseconds));
 	}
 
 	return vbRet;
 }
 
 //////////////////
-// CLJDateRange //
+// CFWUtilDateRange //
 //////////////////
 
-CLJDateRange::CLJDateRange()
+CFWUtilDateRange::CFWUtilDateRange()
 {
 }
 
-CLJDateRange::CLJDateRange(const CLJDateRange &aLJDateRange)
+CFWUtilDateRange::CFWUtilDateRange(const CFWUtilDateRange &aFWUtilDateRange)
 {
-	SetRange(aLJDateRange.m_LJDate1, aLJDateRange.m_LJDate2);
+	SetRange(aFWUtilDateRange.m_FWUtilDate1, aFWUtilDateRange.m_FWUtilDate2);
 }
 
-CLJDateRange::CLJDateRange(CLJDate aLJDate1, CLJDate aLJDate2)
+CFWUtilDateRange::CFWUtilDateRange(CFWUtilDate aFWUtilDate1, CFWUtilDate aFWUtilDate2)
 {
-	SetRange(aLJDate1, aLJDate2);
+	SetRange(aFWUtilDate1, aFWUtilDate2);
 }
 
-CLJDateRange::~CLJDateRange()
+CFWUtilDateRange::~CFWUtilDateRange()
 {
 }
 
-CLJDate CLJDateRange::GetDate1()
+CFWUtilDate CFWUtilDateRange::GetDate1()
 {
-	return m_LJDate1;
+	return m_FWUtilDate1;
 }
 
-CLJDate CLJDateRange::GetDate2()
+CFWUtilDate CFWUtilDateRange::GetDate2()
 {
-	return m_LJDate2;
+	return m_FWUtilDate2;
 }
 
-void CLJDateRange::SetRange(CLJDate aLJDate1, CLJDate aLJDate2)
+void CFWUtilDateRange::SetRange(CFWUtilDate aFWUtilDate1, CFWUtilDate aFWUtilDate2)
 {
-	if (aLJDate1 <= aLJDate2)
+	if (aFWUtilDate1 <= aFWUtilDate2)
 	{
-		m_LJDate1 = aLJDate1;
-		m_LJDate2 = aLJDate2;
+		m_FWUtilDate1 = aFWUtilDate1;
+		m_FWUtilDate2 = aFWUtilDate2;
 	}
 	else
 	{
-		m_LJDate1 = aLJDate2;
-		m_LJDate2 = aLJDate1;
+		m_FWUtilDate1 = aFWUtilDate2;
+		m_FWUtilDate2 = aFWUtilDate1;
 	}
 }
 
-void CLJDateRange::SetRange(const CLJDateRange &aLJDateRange)
+void CFWUtilDateRange::SetRange(const CFWUtilDateRange &aFWUtilDateRange)
 {
-	SetRange(aLJDateRange.m_LJDate1, aLJDateRange.m_LJDate2);
+	SetRange(aFWUtilDateRange.m_FWUtilDate1, aFWUtilDateRange.m_FWUtilDate2);
 }
 
-CLJDateRange &CLJDateRange::operator =(const CLJDateRange &aLJDateRange)
+CFWUtilDateRange &CFWUtilDateRange::operator =(const CFWUtilDateRange &aFWUtilDateRange)
 {
-	SetRange(aLJDateRange.m_LJDate1, aLJDateRange.m_LJDate2);
+	SetRange(aFWUtilDateRange.m_FWUtilDate1, aFWUtilDateRange.m_FWUtilDate2);
 	return *this;
 }
 
-bool CLJDateRange::IsNull()
+bool CFWUtilDateRange::IsNull()
 {
-	return (m_LJDate1.IsNull() || m_LJDate2.IsNull());
+	return (m_FWUtilDate1.IsNull() || m_FWUtilDate2.IsNull());
 }
 
-bool CLJDateRange::IsValid()
+bool CFWUtilDateRange::IsValid()
 {
-	return (m_LJDate1.IsValid() && m_LJDate2.IsValid());
+	return (m_FWUtilDate1.IsValid() && m_FWUtilDate2.IsValid());
 }
 
-void CLJDateRange::Clear()
+void CFWUtilDateRange::Clear()
 {
-	m_LJDate1.Clear();
-	m_LJDate2.Clear();
+	m_FWUtilDate1.Clear();
+	m_FWUtilDate2.Clear();
 }
 
-bool CLJDateRange::IsBetween(CLJDate aLJDate)
+bool CFWUtilDateRange::IsBetween(CFWUtilDate aFWUtilDate)
 {
 	bool vbRet = false;
-	if (IsValid() && aLJDate.IsValid())
+	if (IsValid() && aFWUtilDate.IsValid())
 	{
-		vbRet = ((m_LJDate1 <= aLJDate) && (aLJDate <= m_LJDate2));
+		vbRet = ((m_FWUtilDate1 <= aFWUtilDate) && (aFWUtilDate <= m_FWUtilDate2));
 	}
 	return vbRet;
 }
@@ -2153,23 +2152,23 @@ bool CLJDateRange::IsBetween(CLJDate aLJDate)
 // Date Utility Functions    //
 ///////////////////////////////
 
-bool LJDateAdd(LJDateAdd_Constants aeAddWhat, int aiVal, int &aiYear, int &aiMonth, int &aiDay)
+bool FWUtilDateAdd(FWUtilDateAdd_Constants aeAddWhat, int aiVal, int &aiYear, int &aiMonth, int &aiDay)
 {
 	bool vbRet = false;
 	switch (aeAddWhat)
 	{
-	case LJDateAdd_Year:
+	case FWUtilDateAdd_Year:
 		{
-			if (LJIsValidDate(aiYear, aiMonth, aiDay))
+			if (FWIsValidDate(aiYear, aiMonth, aiDay))
 			{
 				aiYear += aiVal;
 				vbRet = true;
 			}
 		}
 		break;
-	case LJDateAdd_Month:
+	case FWUtilDateAdd_Month:
 		{
-			if (LJIsValidDate(aiYear, aiMonth, aiDay))
+			if (FWIsValidDate(aiYear, aiMonth, aiDay))
 			{
 				LONGLONG vi64Date = ((aiYear * 12) + aiMonth);
 				vi64Date += aiVal;
@@ -2179,21 +2178,21 @@ bool LJDateAdd(LJDateAdd_Constants aeAddWhat, int aiVal, int &aiYear, int &aiMon
 			}
 		}
 		break;
-	case LJDateAdd_Week:
+	case FWUtilDateAdd_Week:
 		{
 			ULONGLONG vui64Date;
-			if (LJDateToUi64(aiYear, aiMonth, aiDay, vui64Date))
+			if (FWUtilDateToUi64(aiYear, aiMonth, aiDay, vui64Date))
 			{
-				LONGLONG vi64Date = vui64Date + (aiVal * LJ_WEEK);
+				LONGLONG vi64Date = vui64Date + (aiVal * FWDATE_WEEK);
 				if (vi64Date >= 0)
 				{
 					vui64Date = vi64Date;
-					vbRet = LJUi64ToDate(vui64Date, aiYear, aiMonth, aiDay);
+					vbRet = FWUi64ToDate(vui64Date, aiYear, aiMonth, aiDay);
 				}
 			}
 		}
 		break;
-	case LJDateAdd_Day:
+	case FWUtilDateAdd_Day:
 		{
 // LMJ 			unsigned __int64	vui64Date;
 // LMJ 			SYSTEMTIME			vstDate;
@@ -2213,13 +2212,13 @@ bool LJDateAdd(LJDateAdd_Constants aeAddWhat, int aiVal, int &aiYear, int &aiMon
 // LMJ 			}
 
 			ULONGLONG vui64Date;
-			if (LJDateToUi64(aiYear, aiMonth, aiDay, vui64Date))
+			if (FWUtilDateToUi64(aiYear, aiMonth, aiDay, vui64Date))
 			{
-				LONGLONG vi64Date = vui64Date + (aiVal * LJ_DAY);
+				LONGLONG vi64Date = vui64Date + (aiVal * FWDATE_DAY);
 				if (vi64Date >= 0)
 				{
 					vui64Date = vi64Date;
-					vbRet = LJUi64ToDate(vui64Date, aiYear, aiMonth, aiDay);
+					vbRet = FWUi64ToDate(vui64Date, aiYear, aiMonth, aiDay);
 				}
 			}
 		}
@@ -2228,7 +2227,7 @@ bool LJDateAdd(LJDateAdd_Constants aeAddWhat, int aiVal, int &aiYear, int &aiMon
 	return vbRet;
 }
 
-bool LJDateCompare(int aiYear1, int aiMonth1, int aiDay1, int aiYear2, int aiMonth2, int aiDay2, int &aiCompare)
+bool FWUtilDateCompare(int aiYear1, int aiMonth1, int aiDay1, int aiYear2, int aiMonth2, int aiDay2, int &aiCompare)
 {
 	bool		vbRet = false;
 	SYSTEMTIME	vstDate1;
@@ -2266,7 +2265,7 @@ bool LJDateCompare(int aiYear1, int aiMonth1, int aiDay1, int aiYear2, int aiMon
 	return vbRet;
 }
 
-bool LJDateToUi64(int aiYear, int aiMonth, int aiDay, ULONGLONG &aui64Val)
+bool FWUtilDateToUi64(int aiYear, int aiMonth, int aiDay, ULONGLONG &aui64Val)
 {
 	bool vbRet = false;
 	SYSTEMTIME vstDate;
@@ -2283,7 +2282,7 @@ bool LJDateToUi64(int aiYear, int aiMonth, int aiDay, ULONGLONG &aui64Val)
 	return vbRet;
 }
 
-bool LJUi64ToDate(ULONGLONG aui64Val, int &aiYear, int &aiMonth, int &aiDay)
+bool FWUi64ToDate(ULONGLONG aui64Val, int &aiYear, int &aiMonth, int &aiDay)
 {
 	bool vbRet = false;
 	SYSTEMTIME vstDate;
@@ -2299,12 +2298,12 @@ bool LJUi64ToDate(ULONGLONG aui64Val, int &aiYear, int &aiMonth, int &aiDay)
 	return vbRet;
 }
 
-bool LJIsLeapYear(int aiYear)
+bool FWIsLeapYear(int aiYear)
 {
 	return ((aiYear & 3) == 0) && ((aiYear % 100) != 0 || (aiYear % 400) == 0);
 }
 
-bool LJIsValidDate(int aiYear, int aiMonth, int aiDay)
+bool FWIsValidDate(int aiYear, int aiMonth, int aiDay)
 {
 	SYSTEMTIME	vstDate;
 	FILETIME	vftDate;
@@ -2315,7 +2314,7 @@ bool LJIsValidDate(int aiYear, int aiMonth, int aiDay)
 	return (SystemTimeToFileTime(&vstDate, &vftDate) != 0);
 }
 
-bool LJSplitDate(LPCTSTR apctszDate, int &aiYear, int &aiMonth, int &aiDay, LPCTSTR apctszSeperator)
+bool FWSplitDate(LPCTSTR apctszDate, int &aiYear, int &aiMonth, int &aiDay, LPCTSTR apctszSeperator)
 {
 	enum	eState {eDAY, eMONTH, eYEAR};
 
@@ -2388,13 +2387,13 @@ bool LJSplitDate(LPCTSTR apctszDate, int &aiYear, int &aiMonth, int &aiDay, LPCT
 			aiYear = _ttoi(vszYear);
 			aiMonth = _ttoi(vszMonth);
 			aiDay = _ttoi(vszDay);
-			vbRet = LJIsValidDate(aiYear, aiMonth, aiDay);
+			vbRet = FWIsValidDate(aiYear, aiMonth, aiDay);
 		}
 	}
 	return vbRet;
 }
 
-CString LJDateString(int aiYear, int aiMonth, int aiDay, bool abUseLongDescription)
+CString FWUtilDateString(int aiYear, int aiMonth, int aiDay, bool abUseLongDescription)
 {
 	bool	vbRet = false;
 	CString	vcstrRet;
@@ -2404,7 +2403,7 @@ CString LJDateString(int aiYear, int aiMonth, int aiDay, bool abUseLongDescripti
 		vdwFlags = DATE_LONGDATE;
 	else
 		vdwFlags = DATE_SHORTDATE;
-	if (LJIsValidDate(aiYear, aiMonth, aiDay))
+	if (FWIsValidDate(aiYear, aiMonth, aiDay))
 	{
 		SYSTEMTIME vstDate;
 		vstDate.wYear = aiYear;
@@ -2419,9 +2418,9 @@ CString LJDateString(int aiYear, int aiMonth, int aiDay, bool abUseLongDescripti
 	return vcstrRet;
 }
 
-CString LJGetDayName(int aiDay, bool abUseLongDescription)
+CString FWGetDayName(int aiDay, bool abUseLongDescription)
 {
-	return CLJDate::GetLocaleNameOfDay(LOCALE_USER_DEFAULT, aiDay, abUseLongDescription);
+	return CFWUtilDate::GetLocaleNameOfDay(LOCALE_USER_DEFAULT, aiDay, abUseLongDescription);
 
 //SJSG 	CString	vcstrRet;
 //SJSG 	int		viLen;
@@ -2430,37 +2429,37 @@ CString LJGetDayName(int aiDay, bool abUseLongDescription)
 //SJSG 	{
 //SJSG 		switch (aiDay)
 //SJSG 		{
-//SJSG 		case LJDateDay_Sunday:
+//SJSG 		case FWUtilDateDay_Sunday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME7, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME7, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Monday:
+//SJSG 		case FWUtilDateDay_Monday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME1, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME1, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Tuesday:
+//SJSG 		case FWUtilDateDay_Tuesday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME2, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME2, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Wednesday:
+//SJSG 		case FWUtilDateDay_Wednesday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME3, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME3, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Thursday:
+//SJSG 		case FWUtilDateDay_Thursday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME4, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME4, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Friday:
+//SJSG 		case FWUtilDateDay_Friday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME5, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME5, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Saturday:
+//SJSG 		case FWUtilDateDay_Saturday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME6, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SDAYNAME6, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
@@ -2471,37 +2470,37 @@ CString LJGetDayName(int aiDay, bool abUseLongDescription)
 //SJSG 	{
 //SJSG 		switch (aiDay)
 //SJSG 		{
-//SJSG 		case LJDateDay_Sunday:
+//SJSG 		case FWUtilDateDay_Sunday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME7, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME7, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Monday:
+//SJSG 		case FWUtilDateDay_Monday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME1, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME1, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Tuesday:
+//SJSG 		case FWUtilDateDay_Tuesday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME2, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME2, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Wednesday:
+//SJSG 		case FWUtilDateDay_Wednesday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME3, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME3, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Thursday:
+//SJSG 		case FWUtilDateDay_Thursday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME4, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME4, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Friday:
+//SJSG 		case FWUtilDateDay_Friday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME5, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME5, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateDay_Saturday:
+//SJSG 		case FWUtilDateDay_Saturday:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME6, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVDAYNAME6, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
@@ -2511,11 +2510,11 @@ CString LJGetDayName(int aiDay, bool abUseLongDescription)
 //SJSG 	return vcstrRet;
 }
 
-CString LJGetMonthName(int aiMonth, bool abUseLongDescription)
+CString FWGetMonthName(int aiMonth, bool abUseLongDescription)
 {
-	return CLJDate::GetLocaleNameOfMonth(LOCALE_USER_DEFAULT, aiMonth, abUseLongDescription);
+	return CFWUtilDate::GetLocaleNameOfMonth(LOCALE_USER_DEFAULT, aiMonth, abUseLongDescription);
 
-	// NOTE: The fix below is now handled by the CLJDate::LocaleInfo() function...
+	// NOTE: The fix below is now handled by the CFWUtilDate::LocaleInfo() function...
 
 //SJSG 
 //SJSG 	CString	vcstrRet;
@@ -2530,62 +2529,62 @@ CString LJGetMonthName(int aiMonth, bool abUseLongDescription)
 //SJSG 	{
 //SJSG 		switch (aiMonth)
 //SJSG 		{
-//SJSG 		case LJDateMonth_January:
+//SJSG 		case FWUtilDateMonth_January:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME1, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME1, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_February:
+//SJSG 		case FWUtilDateMonth_February:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME2, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME2, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_March:
+//SJSG 		case FWUtilDateMonth_March:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME3, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME3, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_April:
+//SJSG 		case FWUtilDateMonth_April:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME4, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME4, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_May:
+//SJSG 		case FWUtilDateMonth_May:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME5, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME5, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_June:
+//SJSG 		case FWUtilDateMonth_June:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME6, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME6, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_July:
+//SJSG 		case FWUtilDateMonth_July:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME7, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME7, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_August:
+//SJSG 		case FWUtilDateMonth_August:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME8, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME8, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_September:
+//SJSG 		case FWUtilDateMonth_September:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME9, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME9, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_October:
+//SJSG 		case FWUtilDateMonth_October:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME10, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME10, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_November:
+//SJSG 		case FWUtilDateMonth_November:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME11, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME11, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_December:
+//SJSG 		case FWUtilDateMonth_December:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME12, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SMONTHNAME12, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
@@ -2596,62 +2595,62 @@ CString LJGetMonthName(int aiMonth, bool abUseLongDescription)
 //SJSG 	{
 //SJSG 		switch (aiMonth)
 //SJSG 		{
-//SJSG 		case LJDateMonth_January:
+//SJSG 		case FWUtilDateMonth_January:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME1, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME1, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_February:
+//SJSG 		case FWUtilDateMonth_February:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME2, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME2, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_March:
+//SJSG 		case FWUtilDateMonth_March:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME3, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME3, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_April:
+//SJSG 		case FWUtilDateMonth_April:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME4, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME4, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_May:
+//SJSG 		case FWUtilDateMonth_May:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME5, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME5, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_June:
+//SJSG 		case FWUtilDateMonth_June:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME6, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME6, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_July:
+//SJSG 		case FWUtilDateMonth_July:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME7, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME7, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_August:
+//SJSG 		case FWUtilDateMonth_August:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME8, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME8, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_September:
+//SJSG 		case FWUtilDateMonth_September:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME9, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME9, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_October:
+//SJSG 		case FWUtilDateMonth_October:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME10, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME10, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_November:
+//SJSG 		case FWUtilDateMonth_November:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME11, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME11, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
 //SJSG 			break;
-//SJSG 		case LJDateMonth_December:
+//SJSG 		case FWUtilDateMonth_December:
 //SJSG 			viLen = ::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME12, NULL, 0);
 //SJSG 			::GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SABBREVMONTHNAME12, vcstrRet.GetBuffer(viLen), viLen);
 //SJSG 			vcstrRet.ReleaseBuffer();
@@ -2661,10 +2660,10 @@ CString LJGetMonthName(int aiMonth, bool abUseLongDescription)
 //SJSG 	return vcstrRet;
 }
 
-int LJFindHalf(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeStartOfYear)
+int FWFindHalf(int &aiYear, int &aiMonth, int &aiDay, FWUtilDateMonth_Constants aeStartOfYear)
 {
 	int viRet = 0;
-	if (LJIsValidDate(aiYear, aiMonth, aiDay))
+	if (FWIsValidDate(aiYear, aiMonth, aiDay))
 	{
 		//               Month  Start Of Year
 		int viHalfYearTable[12][12] = 
@@ -2707,10 +2706,10 @@ int LJFindHalf(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeSt
 	return viRet;
 }
 
-int LJFindQuarter(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeStartOfYear)
+int FWFindQuarter(int &aiYear, int &aiMonth, int &aiDay, FWUtilDateMonth_Constants aeStartOfYear)
 {
 	int viRet = 0;
-	if (LJIsValidDate(aiYear, aiMonth, aiDay))
+	if (FWIsValidDate(aiYear, aiMonth, aiDay))
 	{
 		//                  Month  Start Of Year
 		int viQuarterYearTable[12][12] = 
@@ -2767,14 +2766,14 @@ int LJFindQuarter(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants a
 	return viRet;
 }
 
-int	LJFindWeekEx(int &aiYear, int &aiMonth, int &aiDay)
+int	FWFindWeekEx(int &aiYear, int &aiMonth, int &aiDay)
 {
-	CLJDate vtDate;
+	CFWUtilDate vtDate;
 
-	return LJFindWeekEx(aiYear, aiMonth, aiDay, vtDate);
+	return FWFindWeekEx(aiYear, aiMonth, aiDay, vtDate);
 }
 
-int LJFindWeekEx(int &aiYear, int &aiMonth, int &aiDay, CLJDate &atStartOfWeekDay, LJDateMonth_Constants aeStartOfYear, LJDateDay_Constants aeStartOfWeek)
+int FWFindWeekEx(int &aiYear, int &aiMonth, int &aiDay, CFWUtilDate &atStartOfWeekDay, FWUtilDateMonth_Constants aeStartOfYear, FWUtilDateDay_Constants aeStartOfWeek)
 {
 	int						viRet = -1;
 	FILETIME				vftDate;
@@ -2803,12 +2802,7 @@ int LJFindWeekEx(int &aiYear, int &aiMonth, int &aiDay, CLJDate &atStartOfWeekDa
 
 		if(FileTimeToSystemTime(&vftDate, &vstDate) && FileTimeToSystemTime(&vftSOY, &vstSOY))
 		{
-			// if the date specified is before the first start of week day of the year, adjust the soy back one year
-			//viDayAdj = LJStartOfWeekAdjuster(vstDate.wDayOfWeek, aeStartOfWeek);
-			//vui64Current = vui64Date - (viDayAdj * LJ_DAY);
-			//viDayAdj = LJStartOfWeekAdjuster(vstSOY.wDayOfWeek, aeStartOfWeek);
 			vbAdjustSOYBack1Year = IsDateBeforeFirstStartOfWeekDayOfYear(vstDate, vstSOY, aeStartOfWeek);
-			//vbAdjustSOYBack1Year = (vui64Current != vui64Date && (vui64Date > (vui64SOY - (viDayAdj * LJ_DAY))) && vui64Current == (vui64SOY - (viDayAdj * LJ_DAY)));
 
 			if (vui64Date < vui64SOY || (vbAdjustSOYBack1Year) )
 			{
@@ -2818,9 +2812,9 @@ int LJFindWeekEx(int &aiYear, int &aiMonth, int &aiDay, CLJDate &atStartOfWeekDa
 			}
 			if (FileTimeToSystemTime(&vftDate, &vstDate) && FileTimeToSystemTime(&vftSOY, &vstSOY))
 			{
-				viDayAdj = LJStartOfWeekAdjuster(vstDate.wDayOfWeek, aeStartOfWeek);
-				vui64Current = vui64Date - (viDayAdj * LJ_DAY);
-				if (LJUi64ToDate(vui64Current, aiYear, aiMonth, aiDay))
+				viDayAdj = FWStartOfWeekAdjuster(vstDate.wDayOfWeek, aeStartOfWeek);
+				vui64Current = vui64Date - (viDayAdj * FWDATE_DAY);
+				if (FWUi64ToDate(vui64Current, aiYear, aiMonth, aiDay))
 				{
 					if (vstSOY.wDayOfWeek == aeStartOfWeek)
 					{
@@ -2829,16 +2823,16 @@ int LJFindWeekEx(int &aiYear, int &aiMonth, int &aiDay, CLJDate &atStartOfWeekDa
 					}
 					else
 					{
-						viDayAdj = LJStartOfWeekAdjuster(vstSOY.wDayOfWeek, aeStartOfWeek);
-						vui64Current = vui64SOY - (viDayAdj * LJ_DAY);
+						viDayAdj = FWStartOfWeekAdjuster(vstSOY.wDayOfWeek, aeStartOfWeek);
+						vui64Current = vui64SOY - (viDayAdj * FWDATE_DAY);
 						viWeekCount = -1;
 					}
 					while (vui64Current <= vui64Date)
 					{
 						viWeekCount++;
-						vui64Current += LJ_WEEK;
+						vui64Current += FWDATE_WEEK;
 					}
-					atStartOfWeekDay = vui64Current - LJ_WEEK;
+					atStartOfWeekDay = vui64Current - FWDATE_WEEK;
 					viRet = viWeekCount;
 				}
 			}
@@ -2848,7 +2842,7 @@ int LJFindWeekEx(int &aiYear, int &aiMonth, int &aiDay, CLJDate &atStartOfWeekDa
 	return viRet;
 }
 
-bool IsDateBeforeFirstStartOfWeekDayOfYear(SYSTEMTIME astDate, SYSTEMTIME astSOY, LJDateDay_Constants aeStartOfWeek)
+bool IsDateBeforeFirstStartOfWeekDayOfYear(SYSTEMTIME astDate, SYSTEMTIME astSOY, FWUtilDateDay_Constants aeStartOfWeek)
 {
 	bool vbRet = false;
 
@@ -2863,8 +2857,8 @@ bool IsDateBeforeFirstStartOfWeekDayOfYear(SYSTEMTIME astDate, SYSTEMTIME astSOY
 			vui64Date = *(ULONGLONG*)&vftDate;
 			vui64SOY = *(ULONGLONG*)&vftSOY;
 
-			viDayAdj = LJStartOfWeekAdjuster(astSOY.wDayOfWeek, aeStartOfWeek);
-			vui64SOWSOY = vui64SOY + ((7 - viDayAdj) * LJ_DAY);
+			viDayAdj = FWStartOfWeekAdjuster(astSOY.wDayOfWeek, aeStartOfWeek);
+			vui64SOWSOY = vui64SOY + ((7 - viDayAdj) * FWDATE_DAY);
 			if(vui64Date < vui64SOWSOY)
 				vbRet = true;
 		}
@@ -2877,7 +2871,7 @@ bool IsDateBeforeFirstStartOfWeekDayOfYear(SYSTEMTIME astDate, SYSTEMTIME astSOY
 	return vbRet;
 }
 
-int LJFindWeek(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeStartOfYear, LJDateDay_Constants aeStartOfWeek)
+int FWFindWeek(int &aiYear, int &aiMonth, int &aiDay, FWUtilDateMonth_Constants aeStartOfYear, FWUtilDateDay_Constants aeStartOfWeek)
 {
 	int			viRet = -1;
 	FILETIME	vftDate;
@@ -2909,9 +2903,9 @@ int LJFindWeek(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeSt
 		}
 		if (FileTimeToSystemTime(&vftDate, &vstDate) && FileTimeToSystemTime(&vftSOY, &vstSOY))
 		{
-			viDayAdj = LJStartOfWeekAdjuster(vstDate.wDayOfWeek, aeStartOfWeek);
-			vui64Current = vui64Date - (viDayAdj * LJ_DAY);
-			if (LJUi64ToDate(vui64Current, aiYear, aiMonth, aiDay))
+			viDayAdj = FWStartOfWeekAdjuster(vstDate.wDayOfWeek, aeStartOfWeek);
+			vui64Current = vui64Date - (viDayAdj * FWDATE_DAY);
+			if (FWUi64ToDate(vui64Current, aiYear, aiMonth, aiDay))
 			{
 				if (vstSOY.wDayOfWeek == aeStartOfWeek)
 				{
@@ -2920,14 +2914,14 @@ int LJFindWeek(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeSt
 				}
 				else
 				{
-					viDayAdj = LJStartOfWeekAdjuster(vstSOY.wDayOfWeek, aeStartOfWeek);
-					vui64Current = vui64SOY - (viDayAdj * LJ_DAY);
+					viDayAdj = FWStartOfWeekAdjuster(vstSOY.wDayOfWeek, aeStartOfWeek);
+					vui64Current = vui64SOY - (viDayAdj * FWDATE_DAY);
 					viWeekCount = -1;
 				}
 				while (vui64Current <= vui64Date)
 				{
 					viWeekCount++;
-					vui64Current += LJ_WEEK;
+					vui64Current += FWDATE_WEEK;
 				}
 				viRet = viWeekCount;
 			}
@@ -2936,7 +2930,7 @@ int LJFindWeek(int &aiYear, int &aiMonth, int &aiDay, LJDateMonth_Constants aeSt
 	return viRet;
 }
 
-int LJFindDay(int aiYear, int aiMonth, int aiDay, LJDateMonth_Constants aeStartOfYear)
+int FWFindDay(int aiYear, int aiMonth, int aiDay, FWUtilDateMonth_Constants aeStartOfYear)
 {
 	int			viRet = 0;
 	ULONGLONG	vui64Date;
@@ -2944,17 +2938,17 @@ int LJFindDay(int aiYear, int aiMonth, int aiDay, LJDateMonth_Constants aeStartO
 	int			viYear = aiYear;
 	if (aiMonth < aeStartOfYear)
 		viYear--;
-	if (LJDateToUi64(viYear, aeStartOfYear, 1, vui64SOY))
+	if (FWUtilDateToUi64(viYear, aeStartOfYear, 1, vui64SOY))
 	{
-		if (LJDateToUi64(aiYear, aiMonth, aiDay, vui64Date))
+		if (FWUtilDateToUi64(aiYear, aiMonth, aiDay, vui64Date))
 		{
-			viRet = (int)((vui64Date - vui64SOY) / LJ_DAY) + 1;
+			viRet = (int)((vui64Date - vui64SOY) / FWDATE_DAY) + 1;
 		}
 	}
 	return viRet;
 }
 
-int LJGetDayOfWeek(int aiYear, int aiMonth, int aiDay)
+int FWGetDayOfWeek(int aiYear, int aiMonth, int aiDay)
 {
 	int			viDayOfWeek = -1;
 	SYSTEMTIME	vstDate;
@@ -2973,55 +2967,55 @@ int LJGetDayOfWeek(int aiYear, int aiMonth, int aiDay)
 	return viDayOfWeek;
 }
 
-int LJLastDayOfMonth(int aiYear, int aiMonth)
+int FWLastDayOfMonth(int aiYear, int aiMonth)
 {
 	int viDay = 0;
 	switch (aiMonth)
 	{
-	case LJDateMonth_January:
+	case FWUtilDateMonth_January:
 		viDay = 31;
 		break;
-	case LJDateMonth_February:
-		if (LJIsLeapYear(aiYear))
+	case FWUtilDateMonth_February:
+		if (FWIsLeapYear(aiYear))
 			viDay = 29;
 		else
 			viDay = 28;
 		break;
-	case LJDateMonth_March:
+	case FWUtilDateMonth_March:
 		viDay = 31;
 		break;
-	case LJDateMonth_April:
+	case FWUtilDateMonth_April:
 		viDay = 30;
 		break;
-	case LJDateMonth_May:
+	case FWUtilDateMonth_May:
 		viDay = 31;
 		break;
-	case LJDateMonth_June:
+	case FWUtilDateMonth_June:
 		viDay = 30;
 		break;
-	case LJDateMonth_July:
+	case FWUtilDateMonth_July:
 		viDay = 31;
 		break;
-	case LJDateMonth_August:
+	case FWUtilDateMonth_August:
 		viDay = 31;
 		break;
-	case LJDateMonth_September:
+	case FWUtilDateMonth_September:
 		viDay = 30;
 		break;
-	case LJDateMonth_October:
+	case FWUtilDateMonth_October:
 		viDay = 31;
 		break;
-	case LJDateMonth_November:
+	case FWUtilDateMonth_November:
 		viDay = 30;
 		break;
-	case LJDateMonth_December:
+	case FWUtilDateMonth_December:
 		viDay = 31;
 		break;
 	}
 	return viDay;
 }
 
-int LJStartOfWeekAdjuster(int aiDayOfWeek, int aiStartOfWeek)
+int FWStartOfWeekAdjuster(int aiDayOfWeek, int aiStartOfWeek)
 {
 	int viRet = 0;
 	if (aiDayOfWeek >= aiStartOfWeek)
@@ -3033,7 +3027,7 @@ int LJStartOfWeekAdjuster(int aiDayOfWeek, int aiStartOfWeek)
 //
 // End of modification
 
-bool LJTimeToInt(int aiHours, int aiMinutes, int aiSeconds, int& aiInt)
+bool FWTimeToInt(int aiHours, int aiMinutes, int aiSeconds, int& aiInt)
 {
 	if (aiHours >= 0 && aiHours < 24)
 	{
@@ -3049,7 +3043,7 @@ bool LJTimeToInt(int aiHours, int aiMinutes, int aiSeconds, int& aiInt)
 	return false;
 }
 
-bool LJIntToTime(int aiInt, int& aiHours, int& aiMinutes, int& aiSeconds)
+bool FWIntToTime(int aiInt, int& aiHours, int& aiMinutes, int& aiSeconds)
 {
 	int viQuot;
 	int	viRem;
@@ -3069,7 +3063,7 @@ bool LJIntToTime(int aiInt, int& aiHours, int& aiMinutes, int& aiSeconds)
 	return false;
 }
 
-bool LJDateTimeToString(LPCTSTR aszPicture, CString& astrResult, SYSTEMTIME* apstDateTime, LPCTSTR aszDayChars)
+bool FWUtilDateTimeToString(LPCTSTR aszPicture, CString& astrResult, SYSTEMTIME* apstDateTime, LPCTSTR aszDayChars)
 {
 	bool		vbRet = false;
 	bool		vbContinue = false;
@@ -3086,7 +3080,7 @@ bool LJDateTimeToString(LPCTSTR aszPicture, CString& astrResult, SYSTEMTIME* aps
 		vstrDayChars.Empty();
 		for (int i = 0; i < 7; i++)
 		{
-			vstrDayChars += LJGetDayName(i, false).Left(1);
+			vstrDayChars += FWGetDayName(i, false).Left(1);
 		}
 	}
 	if (aszPicture && apstDateTime)
@@ -3147,11 +3141,11 @@ bool LJDateTimeToString(LPCTSTR aszPicture, CString& astrResult, SYSTEMTIME* aps
 									}
 									else if (_tcscmp(vstrSymbol, _T("ddd")) == 0)
 									{
-										vstrTemp = LJGetDayName(apstDateTime->wDayOfWeek, false);
+										vstrTemp = FWGetDayName(apstDateTime->wDayOfWeek, false);
 									}
 									else if (_tcscmp(vstrSymbol, _T("dddd")) == 0)
 									{
-										vstrTemp = LJGetDayName(apstDateTime->wDayOfWeek, true);
+										vstrTemp = FWGetDayName(apstDateTime->wDayOfWeek, true);
 									}
 									else if (_tcscmp(vstrSymbol, _T("M")) == 0)
 									{
@@ -3163,11 +3157,11 @@ bool LJDateTimeToString(LPCTSTR aszPicture, CString& astrResult, SYSTEMTIME* aps
 									}
 									else if (_tcscmp(vstrSymbol, _T("MMM")) == 0)
 									{
-										vstrTemp = LJGetMonthName(apstDateTime->wMonth, false);
+										vstrTemp = FWGetMonthName(apstDateTime->wMonth, false);
 									}
 									else if (_tcscmp(vstrSymbol, _T("MMMM")) == 0)
 									{
-										vstrTemp = LJGetMonthName(apstDateTime->wMonth, true);
+										vstrTemp = FWGetMonthName(apstDateTime->wMonth, true);
 									}
 									else if (_tcscmp(vstrSymbol, _T("y")) == 0)
 									{
@@ -3300,16 +3294,16 @@ bool LJDateTimeToString(LPCTSTR aszPicture, CString& astrResult, SYSTEMTIME* aps
 	return vbRet;
 }
 
-bool LJParseTime(LPCTSTR aszTimeString, int& aiHours, int& aiMinutes, LCID aLocale /*=LOCALE_USER_DEFAULT*/)
+bool FWParseTime(LPCTSTR aszTimeString, int& aiHours, int& aiMinutes, LCID aLocale /*=LOCALE_USER_DEFAULT*/)
 {
 	int		viSeconds = -1;
 	int		viMilliseconds = -1;
 	bool	vbNextDay;
 
-	return LJParseTimeEx(aszTimeString, aiHours, aiMinutes, viSeconds, viMilliseconds, 0, vbNextDay, aLocale);
+	return FWParseTimeEx(aszTimeString, aiHours, aiMinutes, viSeconds, viMilliseconds, 0, vbNextDay, aLocale);
 }
 
-bool LJParseTimeEx(LPCTSTR aszTimeString, int& aiHours, int& aiMinutes, int& aiSeconds, int& aiMilliseconds, int aiStartOfDayInMinutes, bool& abNextDay, LCID aLocale /*=LOCALE_USER_DEFAULT*/)
+bool FWParseTimeEx(LPCTSTR aszTimeString, int& aiHours, int& aiMinutes, int& aiSeconds, int& aiMilliseconds, int aiStartOfDayInMinutes, bool& abNextDay, LCID aLocale /*=LOCALE_USER_DEFAULT*/)
 {
 	bool	vbRet = false;
 	int		viHours = -1;
@@ -3572,7 +3566,7 @@ bool LJParseTimeEx(LPCTSTR aszTimeString, int& aiHours, int& aiMinutes, int& aiS
 	return vbRet;
 }
 
-static int _LJExtractLongYear(TCHAR* &apcPtr)
+static int _FWExtractLongYear(TCHAR* &apcPtr)
 {
 	TCHAR  vszTemp[5];
 	_tcsncpy_s(vszTemp, sizeof(vszTemp), apcPtr, 4);
@@ -3581,7 +3575,7 @@ static int _LJExtractLongYear(TCHAR* &apcPtr)
 	return _ttoi(vszTemp);
 }
 
-static int _LJExtractShortYear(TCHAR* &apcPtr)
+static int _FWExtractShortYear(TCHAR* &apcPtr)
 {
 	TCHAR  vszTemp[3];
 	int    viYear;
@@ -3595,7 +3589,7 @@ static int _LJExtractShortYear(TCHAR* &apcPtr)
 		return 1900 + viYear;
 }
 
-static int _LJExtractTwoCharMonth(TCHAR* &apcPtr)
+static int _FWExtractTwoCharMonth(TCHAR* &apcPtr)
 {
 	TCHAR  vszTemp[3];
 	_tcsncpy_s(vszTemp, sizeof(vszTemp), apcPtr, 2);
@@ -3604,7 +3598,7 @@ static int _LJExtractTwoCharMonth(TCHAR* &apcPtr)
 	return _ttoi(vszTemp);
 }
 
-static int _LJExtractOneCharMonth(TCHAR* &apcPtr)
+static int _FWExtractOneCharMonth(TCHAR* &apcPtr)
 {
 	TCHAR  vszTemp[2];
 	_tcsncpy_s(vszTemp, sizeof(vszTemp), apcPtr, 1);
@@ -3613,7 +3607,7 @@ static int _LJExtractOneCharMonth(TCHAR* &apcPtr)
 	return _ttoi(vszTemp);
 }
 
-static int _LJExtractTwoCharDay(TCHAR* &apcPtr)
+static int _FWExtractTwoCharDay(TCHAR* &apcPtr)
 {
 	TCHAR  vszTemp[3];
 	_tcsncpy_s(vszTemp, sizeof(vszTemp), apcPtr, 2);
@@ -3622,7 +3616,7 @@ static int _LJExtractTwoCharDay(TCHAR* &apcPtr)
 	return _ttoi(vszTemp);
 }
 
-static int _LJExtractOneCharDay(TCHAR* &apcPtr)
+static int _FWExtractOneCharDay(TCHAR* &apcPtr)
 {
 	TCHAR  vszTemp[2];
 	_tcsncpy_s(vszTemp, sizeof(vszTemp), apcPtr, 1);
@@ -3639,7 +3633,7 @@ static enum
 };
 
 
-bool LJParseShortDate(LPCTSTR aszDateString, int& aiYear, int& aiMonth, int& aiDay, LCID aLocale /*=LOCALE_USER_DEFAULT*/)
+bool FWParseShortDate(LPCTSTR aszDateString, int& aiYear, int& aiMonth, int& aiDay, LCID aLocale /*=LOCALE_USER_DEFAULT*/)
 {
 	static const int viDateOrder_MinSize[3] = { 2, 1, 1 };
 	static const int viDateOrder_MaxSize[3] = { 4, 2, 2 };
@@ -3827,21 +3821,21 @@ bool LJParseShortDate(LPCTSTR aszDateString, int& aiYear, int& aiMonth, int& aiD
 							{
 							case 1:
 								if (viLen > 6)
-									viYear = _LJExtractLongYear(vpcTemp1);
+									viYear = _FWExtractLongYear(vpcTemp1);
 								else
-									viYear = _LJExtractShortYear(vpcTemp1);
+									viYear = _FWExtractShortYear(vpcTemp1);
 								break;
 							case 2:
 								if (viLen > 4)
-									viYear = _LJExtractLongYear(vpcTemp1);
+									viYear = _FWExtractLongYear(vpcTemp1);
 								else
-									viYear = _LJExtractShortYear(vpcTemp1);
+									viYear = _FWExtractShortYear(vpcTemp1);
 								break;
 							case 3:
 								if (viLen > 2)
-									viYear = _LJExtractLongYear(vpcTemp1);
+									viYear = _FWExtractLongYear(vpcTemp1);
 								else
-									viYear = _LJExtractShortYear(vpcTemp1);
+									viYear = _FWExtractShortYear(vpcTemp1);
 								break;
 							}
 							break;
@@ -3850,31 +3844,31 @@ bool LJParseShortDate(LPCTSTR aszDateString, int& aiYear, int& aiMonth, int& aiD
 							{
 							case 1:
 								if (viLen > 4)
-									viMonth = _LJExtractTwoCharMonth(vpcTemp1);
+									viMonth = _FWExtractTwoCharMonth(vpcTemp1);
 								else
-									viMonth = _LJExtractOneCharMonth(vpcTemp1);
+									viMonth = _FWExtractOneCharMonth(vpcTemp1);
 								break;
 							case 2:
 								if (vbSectionHasYear)
 								{
 									if (viLen > 5)
-										viMonth = _LJExtractTwoCharMonth(vpcTemp1);
+										viMonth = _FWExtractTwoCharMonth(vpcTemp1);
 									else
-										viMonth = _LJExtractOneCharMonth(vpcTemp1);
+										viMonth = _FWExtractOneCharMonth(vpcTemp1);
 								}
 								else
 								{
 									if (viLen > 2)
-										viMonth = _LJExtractTwoCharMonth(vpcTemp1);
+										viMonth = _FWExtractTwoCharMonth(vpcTemp1);
 									else
-										viMonth = _LJExtractOneCharMonth(vpcTemp1);
+										viMonth = _FWExtractOneCharMonth(vpcTemp1);
 								}
 								break;
 							case 3:
 								if (viLen > 1)
-									viMonth = _LJExtractTwoCharMonth(vpcTemp1);
+									viMonth = _FWExtractTwoCharMonth(vpcTemp1);
 								else
-									viMonth = _LJExtractOneCharMonth(vpcTemp1);
+									viMonth = _FWExtractOneCharMonth(vpcTemp1);
 								break;
 							}
 							break;
@@ -3883,38 +3877,38 @@ bool LJParseShortDate(LPCTSTR aszDateString, int& aiYear, int& aiMonth, int& aiD
 							{
 							case 1:
 								if (viLen > 5 && viLen != 7)
-									viDay = _LJExtractTwoCharDay(vpcTemp1);
+									viDay = _FWExtractTwoCharDay(vpcTemp1);
 								else
-									viDay = _LJExtractOneCharDay(vpcTemp1);
+									viDay = _FWExtractOneCharDay(vpcTemp1);
 								break;
 							case 2:
 								if (vbSectionHasYear)
 								{
 									if (viLen > 5)
-										viDay = _LJExtractTwoCharDay(vpcTemp1);
+										viDay = _FWExtractTwoCharDay(vpcTemp1);
 									else
-										viDay = _LJExtractOneCharDay(vpcTemp1);
+										viDay = _FWExtractOneCharDay(vpcTemp1);
 								}
 								else
 								{
 									if (viLen > 3)
-										viDay = _LJExtractTwoCharDay(vpcTemp1);
+										viDay = _FWExtractTwoCharDay(vpcTemp1);
 									else
-										viDay = _LJExtractOneCharDay(vpcTemp1);
+										viDay = _FWExtractOneCharDay(vpcTemp1);
 								}
 								break;
 							case 3:
 								if (viLen > 1)
-									viDay = _LJExtractTwoCharDay(vpcTemp1);
+									viDay = _FWExtractTwoCharDay(vpcTemp1);
 								else
-									viDay = _LJExtractOneCharDay(vpcTemp1);
+									viDay = _FWExtractOneCharDay(vpcTemp1);
 								break;
 							}
 							break;
 						}
 					}
 				}
-				if (LJIsValidDate(viYear, viMonth, viDay))
+				if (FWIsValidDate(viYear, viMonth, viDay))
 				{
 					aiYear = viYear;
 					aiMonth = viMonth;
@@ -3936,7 +3930,7 @@ bool LJParseShortDate(LPCTSTR aszDateString, int& aiYear, int& aiMonth, int& aiD
  Sets the date from a double. The fractional part of the
  value sets the time.
  */
-void CLJDate::SetFractionalDate(double adDate)
+void CFWUtilDate::SetFractionalDate(double adDate)
 {
 	// Day is integer value
 	SetDate((int)adDate);
@@ -3965,7 +3959,7 @@ void CLJDate::SetFractionalDate(double adDate)
  Gets the date as a double.
  The time will set the fractional part of the return value.
  */
-double CLJDate::GetFractionalDate() const
+double CFWUtilDate::GetFractionalDate() const
 {
 	double vdRet = (int)(*this);
 	vdRet += (double)GetHours() / 24;
@@ -3979,9 +3973,9 @@ double CLJDate::GetFractionalDate() const
  Converts a string Time Stamp in the format "YYYYMMDD HHMMSS"
  into a Date and Time
  */
-LJDateStatus_Constants CLJDate::SetTimeStamp(LPCTSTR aszTimeStamp)
+FWUtilDateStatus_Constants CFWUtilDate::SetTimeStamp(LPCTSTR aszTimeStamp)
 {
-	LJDateStatus_Constants	veRet = LJDateStatus_Invalid;
+	FWUtilDateStatus_Constants	veRet = FWUtilDateStatus_Invalid;
 	TCHAR					vszTemp[5];
 	int						viYear;
 	int						viMonth;
@@ -4047,9 +4041,9 @@ LJDateStatus_Constants CLJDate::SetTimeStamp(LPCTSTR aszTimeStamp)
 	return veRet;
 }
 
-bool CLJDate::CheckDayMask(BYTE abMask)
+bool CFWUtilDate::CheckDayMask(BYTE abMask)
 {
-	LJDateDay_Constants	veDayOfWeek = GetDayOfWeek();
+	FWUtilDateDay_Constants	veDayOfWeek = GetDayOfWeek();
 	BYTE				vbCompare = (1 << (int)veDayOfWeek);
 	return (vbCompare & abMask) != 0;
 }

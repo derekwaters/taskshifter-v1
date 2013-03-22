@@ -6,7 +6,7 @@
 #include "TaskShifter.h"
 #include "TaskShiftOutput.h"
 #include "TaskShiftUtils.h"
-#include "IncludedFiles\LJDate.h"
+#include "IncludedFiles\FWUtilDate.h"
 #include "IncludedFiles\SimpleSendMail.h"
 #include "IncludedFiles\MSExcel.h"
 #include "TinyXml\TinyXml.h"
@@ -101,8 +101,8 @@ bool CTaskShiftOutput::Output(TimeBlockVector &avecTimeBlocks, TaskVector &avecT
 {
 	bool							vbRet = false;
 	CString							vcstrOutputFilename;
-	CLJDate							vdtCurrent;
-	CLJDate							vdtLastDate;
+	CFWUtilDate						vdtCurrent;
+	CFWUtilDate						vdtLastDate;
 	CString							vcstrTemp;
 
 	if (avecTimeBlocks.size() > 0)
@@ -192,7 +192,7 @@ bool CTaskShiftOutput::OutputToCSVFile(TimeBlockVector &avecTimeBlocks, LPCTSTR 
 	TSOutputColumnVector::iterator	vtCol;
 	CString							vcstrLine;
 	TimeBlockVector::iterator		vtRow;
-	CLJDate							vdtTemp;
+	CFWUtilDate						vdtTemp;
 	int								viDuration;
 	std::vector<CString>			vvecPrevRow;
 	int								viCol;

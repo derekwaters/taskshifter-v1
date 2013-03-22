@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "taskshiftschedulewnd.h"
-#include "IncludedFiles\LJDate.h"
+#include "IncludedFiles\FWUtilDate.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -244,7 +244,7 @@ bool CTaskShiftScheduleWnd::DrawTasks(CDC &adc, int aiMinTime, int aiMaxTime, CR
 	CBrush						vbrTask(RGB(240, 211, 215));
 	int							viDay;
 	TimeBlockVector::iterator	vtTask;
-	CLJDate						vdtTemp;
+	CFWUtilDate					vdtTemp;
 	
 	vrDay = arArea;
 	vrDay.right = vrDay.left + m_iDayWidth;

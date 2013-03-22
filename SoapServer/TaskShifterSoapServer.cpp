@@ -2,7 +2,7 @@
 #include "TaskShifterSoapServer.h"
 #include "../TinyXml/TinyXml.h"
 #include "../TaskShiftUtils.h"
-#include "../IncludedFiles/LJDate.h"
+#include "../IncludedFiles/FWUtilDate.h"
 
 #ifdef TASKSHIFTER_PROFESSIONAL
 

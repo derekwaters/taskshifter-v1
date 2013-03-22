@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TimeSheetDlg.h"
-#include "IncludedFiles\ljdate.h"
+#include "IncludedFiles\FWUtildate.h"
 
 #define	IDC_TIME_SHEET_WND			13100
 
@@ -25,7 +25,7 @@ BOOL CTimeSheetDlg::OnInitDialog()
 
 	TimeBlockVector::iterator	vtIter;
 	int							viPos = 0;
-	CLJDate						vdtTemp;
+	CFWUtilDate					vdtTemp;
 	CString						vcstrTemp;
 
 	m_ctrlTimeSchedule.Create(&m_vecTimeBlocks, &m_vecTasks, this, IDC_TIME_SHEET_WND);

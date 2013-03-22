@@ -2,7 +2,7 @@
 #include "TaskShiftDefs.h"
 #include "TaskShiftUtils.h"
 #include "TinyXml\TinyXml.h"
-#include "IncludedFiles\LJDate.h"
+#include "IncludedFiles\FWUtilDate.h"
 
 TaskVector::TaskVector()
 {
@@ -135,7 +135,7 @@ bool TimeBlockVector::Load()
 	// Load this weeks timings.
 	//
 	CString						vcstrTemp;
-	CLJDate						vdtCurrent;
+	CFWUtilDate					vdtCurrent;
 
 	vdtCurrent.AddDays(-vdtCurrent.GetDayOfWeek());
 	vcstrTemp.Format(_T("%sTimesheet%04i%02i%02i.xml"), CTaskShiftUtils::ValidatePath(CTaskShiftUtils::GetAppPath()), vdtCurrent.GetYear(), vdtCurrent.GetMonth(), vdtCurrent.GetDay());
@@ -179,7 +179,7 @@ bool TimeBlockVector::LoadFrom(LPCTSTR apszFilename)
 
 bool TimeBlockVector::Save()
 {
-	CLJDate					vdtCurrent;
+	CFWUtilDate				vdtCurrent;
 	TiXmlDocument			vtParser;
 	TiXmlElement			*vptRoot;
 	TiXmlElement			*vptItem;
@@ -210,7 +210,7 @@ bool TimeBlockVector::Save()
 
 CString TimeBlockVector::GetXml()
 {
-	CLJDate					vdtCurrent;
+	CFWUtilDate				vdtCurrent;
 	TiXmlDocument			vtParser;
 	TiXmlElement			*vptRoot;
 	TiXmlElement			*vptItem;
